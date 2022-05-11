@@ -1,3 +1,4 @@
+from lis import *
 import copy
 """
 Starting approach:
@@ -15,23 +16,7 @@ move_below(y, x)
 
 
 """
-def longest(list):
-	subsequences = []
-	for i in range(len(list)):
-		n = i;
-		counter = 0;
-		currentlist = [];
-		while counter < len(list):
-			if n == len(list) - 1:
-				n = 0
-			if not currentlist or list[n] > currentlist[-1]:
-				currentlist.append(list[n]);
-			n += 1;
-			counter += 1
-		if currentlist:
-			subsequences.append(currentlist)
-	# lisindexes = [list.index(x) for x in max(subsequences, key=len)]
-	return (max(subsequences, key=len))
+
 
 def s(stacks):
 	for stack in stacks:
@@ -73,7 +58,8 @@ def move_to_top(num, a, b, sortedarr):
 	if distance_to_bottom + 1 < distance_to_top:
 		print(f"{num} going to bottom")
 		for i in range(distance_to_bottom + 1):
-			if a.index(num) == 1 and a[0] < a[-1]:
+			#used to be a[-1]
+			if a.index(num) == 1 and a[0] < a[1]:
 				path.append("sa")
 				s([a])
 			else:
@@ -118,6 +104,7 @@ def	path_find(num, a, b, sortedarr):
 		
 		print(path)
 		print(a)
+		return(path)
 		 
 
 
@@ -138,19 +125,25 @@ def	main(a):
 	sortedarr = sorted(a)
 	b = []
 	lis = longest(a)
-	unsorted = filter(lambda elem: elem not in lis, a)
+	unsorted = sorted(list(filter(lambda elem: elem not in lis, a)))
+	print("UNSORTED", unsorted)
 	for num in unsorted:
-		path_find(num, a, b, sortedarr);
+		x = path_find(num, a, b, sortedarr);
+	if (a.index(sortedarr[0]) != 0):
+		x.extend(move_to_top(sortedarr[0], a, b, sortedarr))
+	print("XXXXXX: ", x)
+
 
 test = [3, 2 , 1]
 arr = [10, 0, 1, 22, 9, 33, 21, 50, 41, 60]
 arr2 =[22, 50, 41, 60, 10, 0, 1, 9, 33, 21]
-print(longest(arr2))
+# print(longest(arr2))
 lis = longest(arr2)
 unsorted = list(filter(lambda elem: elem not in lis, arr2))
 print("unsorted", unsorted)
-print("init: ", arr)
-# s([arr])
+print("init: ", arr2)
+print("lis", lis)
+# # s([arr])
 # print(arr)
 # rr([arr])
 # print(arr)
@@ -160,4 +153,4 @@ print("init: ", arr)
 # r([arr])
 # print(arr)
 
-main(arr)
+main(arr2)
