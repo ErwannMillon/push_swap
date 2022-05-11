@@ -15,39 +15,51 @@ move_below(y, x)
 
 
 """
-def lis(list):
+def longest(list):
 	subsequences = []
 	for i in range(len(list)):
 		n = i;
+		counter = 0;
 		currentlist = [];
-		while n < len(list):
-			if n == i or list[n] > currentlist[-1]:
+		while counter < len(list):
+			if n == len(list) - 1:
+				n = 0
+			if not currentlist or list[n] > currentlist[-1]:
 				currentlist.append(list[n]);
 			n += 1;
+			counter += 1
 		if currentlist:
 			subsequences.append(currentlist)
-	lisindexes = [list.index(x) for x in max(subsequences, key=len)]
-	return (lisindexes)
+	# lisindexes = [list.index(x) for x in max(subsequences, key=len)]
+	return (max(subsequences, key=len))
 
 def s(stacks):
 	for stack in stacks:
 		if stack:
 			print("s")
 			stack.insert(1, stack.pop(0))
+			print(stack)
+
 def p(src, dest):
 	if src:
 		print("p")
 		dest.insert(0, src.pop(0))
+		print(src)
+
 def rr(stacks):
 	for stack in stacks:
 		if stack:
 			print("rr")
 			stack.insert(0, stack.pop(-1))
+			print(stack)
+
 def r(stacks):
 	for stack in stacks:
 		if stack:
 			print("r")
 			stack.append(stack.pop(0))
+			print(stack)
+	
 
 def move_to_top(num, a, b, sortedarr):
 	num_index = a.index(num)
@@ -77,6 +89,9 @@ def move_to_top(num, a, b, sortedarr):
 	print(f'path: {path}')
 	return (path)
 
+def num_after_insert_target(num, a, sortedarr):
+	return(sortedarr[sortedarr.index(num) + 1])
+
 def	path_find(num, a, b, sortedarr):
 	num_index = a.index(num)
 	num_after_insert_target = sortedarr[sortedarr.index(num) + 1]
@@ -89,17 +104,29 @@ def	path_find(num, a, b, sortedarr):
 	# if num_index == index_after_insert_target or num_index == index_before_insert_target:
 	if 1:
 		path.extend(move_to_top(num, a, b, sortedarr))
+		# if a[a.index(num) - 1] != num_before_insert_target:
+		p(a, b)
+		print("b: ", b)
+		path.append("pb")
+		while a[-1] != num_before_insert_target:
+			path.append("ra")
+			r([a])
+			print("b: ", b)
+		p(b, a)
+		print("b: ", b)
+		path.append("pa")
+		
 		print(path)
 		print(a)
 		 
 
 
-def sort_index(num, a, b, sortedarr):
+def sort_order(num, a, b, sortedarr):
 	num_index = a.index(num)
 	num_after_insert_target = sortedarr[sortedarr.index(num) + 1]
 	distance_to_bottom = len(a) - num_index - 1
 	distance_to_top = num_index
-	
+
 	# if a[a.index(num_after_insert_target)] < num and num != max(a):
 	# 	sort_index(num_after_insert_target, a, b, sortedarr)
 	# else:
@@ -110,13 +137,19 @@ def sort_index(num, a, b, sortedarr):
 def	main(a):
 	sortedarr = sorted(a)
 	b = []
-	# for num in a:
-		# sort_index(num, a, b);
-	sort_index(a[1], a, b, sortedarr)
+	lis = longest(a)
+	unsorted = filter(lambda elem: elem not in lis, a)
+	for num in unsorted:
+		path_find(num, a, b, sortedarr);
 
 test = [3, 2 , 1]
 arr = [10, 0, 1, 22, 9, 33, 21, 50, 41, 60]
-# print(arr)
+arr2 =[22, 50, 41, 60, 10, 0, 1, 9, 33, 21]
+print(longest(arr2))
+lis = longest(arr2)
+unsorted = list(filter(lambda elem: elem not in lis, arr2))
+print("unsorted", unsorted)
+print("init: ", arr)
 # s([arr])
 # print(arr)
 # rr([arr])
