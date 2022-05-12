@@ -29,16 +29,19 @@ def find_next(arr, currentlist, firstindex, index):
 		return(max(x, y, key=len))
 	return([])
 
-
 def longest(arr):
 	subsequences = []
 	for num in arr:
 		currentlist = [num]
-		seq = find_next(arr, currentlist, arr.index(num), (arr.index(num) + 1))
+		shouldsearch = True
+		for elem in subsequences:
+			if elem and num in elem:
+				shouldsearch = False
+		if shouldsearch:
+			seq = find_next(arr, currentlist, arr.index(num), (arr.index(num) + 1))
 		if seq:
 			subsequences.append(seq)
 	return(max(subsequences, key=len))
-
 
 # arr = [70, 10, 0, 39, 1, 34, 22, 9, 33, 21, 50, 41, 60]
 # # arr = [1, 2, 3, 4, 5, 0]

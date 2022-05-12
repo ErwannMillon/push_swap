@@ -1,5 +1,7 @@
+from gettext import find
 from lis import *
 import copy
+import random
 """
 Starting approach:
 Check if optimal nums are those that are not in the LIS
@@ -48,8 +50,8 @@ def r(stacks):
 
 def move_to_top(num, a, b, sortedarr):
 	num_index = a.index(num)
-	num_after_insert_target = sortedarr[sortedarr.index(num) + 1]
-	index_after_insert_target = a.index(sortedarr[sortedarr.index(num) + 1])
+	num_after_insert_target = sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)]
+	index_after_insert_target = a.index(sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)])
 	num_before_insert_target = sortedarr[sortedarr.index(num) - 1]
 	index_before_insert_target = a.index(sortedarr[sortedarr.index(num) - 1])
 	distance_to_bottom = len(a) - num_index - 1
@@ -65,23 +67,23 @@ def move_to_top(num, a, b, sortedarr):
 			else:
 				path.append("rra")
 				rr([a])
-				print(a)
+				# print(a)
 	else:
 		print(f'{num} going to top')
 		for i in range(distance_to_top):
 			path.append("ra")
 			r([a])
-			print(a)
+			# print(a)
 	print(f'path: {path}')
 	return (path)
 
 def num_after_insert_target(num, a, sortedarr):
-	return(sortedarr[sortedarr.index(num) + 1])
+	return(sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)])
 
 def	path_find(num, a, b, sortedarr):
 	num_index = a.index(num)
-	num_after_insert_target = sortedarr[sortedarr.index(num) + 1]
-	index_after_insert_target = a.index(sortedarr[sortedarr.index(num) + 1])
+	num_after_insert_target = sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)]
+	index_after_insert_target = a.index(sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)])
 	num_before_insert_target = sortedarr[sortedarr.index(num) - 1]
 	index_before_insert_target = a.index(sortedarr[sortedarr.index(num) - 1])
 	distance_to_bottom = len(a) - num_index - 1
@@ -106,7 +108,43 @@ def	path_find(num, a, b, sortedarr):
 		print(a)
 		return(path)
 		 
-
+# Iterative function to find the longest increasing subsequence of a given list
+def findLIS(arr):
+ 
+    # base case
+    if not arr:
+        return []
+ 
+    # LIS[i] stores the longest increasing subsequence of sublist
+    # `arr[0…i]` that ends with `arr[i]`
+    LIS = [[] for _ in range(len(arr))]
+ 
+    # LIS[0] denotes the longest increasing subsequence ending at `arr[0]`
+    LIS[0].append(arr[0])
+ 
+    # start from the second element in the list
+    for i in range(1, len(arr)):
+ 
+        # do for each element in sublist `arr[0…i-1]`
+        for j in range(i):
+ 
+            # find the longest increasing subsequence that ends with `arr[j]`
+            # where `arr[j]` is less than the current element `arr[i]`
+ 
+            if arr[j] < arr[i] and len(LIS[j]) > len(LIS[i]):
+                LIS[i] = LIS[j].copy()
+ 
+        # include `arr[i]` in `LIS[i]`
+        LIS[i].append(arr[i])
+ 
+    # `j` will store the index of LIS
+    j = 0
+    for i in range(len(arr)):
+        if len(LIS[j]) < len(LIS[i]):
+            j = i
+ 
+    # print LIS
+    return(LIS[j])
 
 def sort_order(num, a, b, sortedarr):
 	num_index = a.index(num)
@@ -122,6 +160,7 @@ def sort_order(num, a, b, sortedarr):
 
 
 def	main(a):
+	copied = copy.deepcopy(a)
 	sortedarr = sorted(a)
 	b = []
 	lis = longest(a)
@@ -131,20 +170,31 @@ def	main(a):
 		x = path_find(num, a, b, sortedarr);
 	if (a.index(sortedarr[0]) != 0):
 		x.extend(move_to_top(sortedarr[0], a, b, sortedarr))
-	print("XXXXXX: ", x)
+	
+	print("\n init: ", copied)
+	print("lis: ", lis)
+	print("unsorte:", unsorted)
+	print("result: ", a)
+	print("Sorted: ", sortedarr)
+	print("Path: ", x)
+	print("has been soirted?? :", a == sortedarr)
 
 
-test = [3, 2 , 1]
+test = [3, 2, 1]
 arr = [10, 0, 1, 22, 9, 33, 21, 50, 41, 60]
 arr2 =[22, 50, 41, 60, 10, 0, 1, 9, 33, 21]
+arr3 = random.sample(range(0, 2344), 15)
+print(arr3)
 # print(longest(arr2))
-lis = longest(arr2)
+lis = longest(arr3)
 unsorted = list(filter(lambda elem: elem not in lis, arr2))
-print("unsorted", unsorted)
-print("init: ", arr2)
-print("lis", lis)
-# # s([arr])
-# print(arr)
+print("\n lis:", lis)
+# print("lis: ", findLIS(arr3))
+# print("unsorted", unsorted)
+# print("init: ", arr2)
+# print("lis", lis)
+# # # s([arr])
+# # print(arr)
 # rr([arr])
 # print(arr)
 # p(arr, b)
@@ -153,4 +203,4 @@ print("lis", lis)
 # r([arr])
 # print(arr)
 
-main(arr2)
+main(arr3)
