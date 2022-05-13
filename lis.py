@@ -6,11 +6,11 @@ def find_next(arr, currentlist, firstindex, index):
 	newnum = None
 	y = []
 	x = []
-	# print("\n", currentlist)
+	print("\n", currentlist)
 	for i in range(len(arr)):
 		if index == len(arr):
 			index = 0
-		# print(f'firstindL {firstindex}, index: {index}, i: {i}, arr[index] {arr[index]}')
+		print(f'firstindL {firstindex}, index: {index}, i: {i}, arr[index] {arr[index]}')
 		if arr[index] > currentlist[-1]:
 			newnum = arr[index]
 			index += 1
@@ -31,8 +31,8 @@ def find_next(arr, currentlist, firstindex, index):
 	for i in range(len(arr)):
 		if (arr.index(newnum) + i + 1) % len(arr) == firstindex:
 			break
-		if arr[(arr.index(newnum) + i + 1) % len(arr)] > currentlist[-1]:
-			newnum = (arr.index(newnum) + i + 1) % len(arr)
+		if arr[(arr.index(newnum) + i + 1) % len(arr)] > listcopy[-1]:
+			newnum = arr[(arr.index(newnum) + i + 1) % len(arr)]
 			shouldfork = True
 			break
 	if shouldfork:
