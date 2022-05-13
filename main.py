@@ -18,34 +18,53 @@ move_below(y, x)
 
 
 """
+def check(arr, path):
+	b = []
+	sortedarr = sorted(arr)
+	for instruction in path:
+		if instruction == "ra":
+			r([arr])
+		elif instruction == "rra":
+			rr([arr])
+		elif instruction == "pb":
+			p(arr, b)
+		elif instruction == "pa":
+			p(b, arr)
+		elif instruction == "sa":
+			s([arr])
 
+	# print("\n\n")
+	# # print(arr)
+	# # print(sortedarr)
+	# if arr == sortedarr:
+		# print("arr = sortedarr")
 
 def s(stacks):
 	for stack in stacks:
 		if stack:
-			print("s")
+			# print("s")
 			stack.insert(1, stack.pop(0))
-			print(stack)
+			# print(stack)
 
 def p(src, dest):
 	if src:
-		print("p")
+		# print("p")
 		dest.insert(0, src.pop(0))
-		print(src)
+		# print(src)
 
 def rr(stacks):
 	for stack in stacks:
 		if stack:
-			print("rr")
+			# print("rr")
 			stack.insert(0, stack.pop(-1))
-			print(stack)
+			# print(stack)
 
 def r(stacks):
 	for stack in stacks:
 		if stack:
-			print("r")
+			# print("r")
 			stack.append(stack.pop(0))
-			print(stack)
+			# print(stack)
 	
 
 def move_to_top(num, a, b, sortedarr):
@@ -58,23 +77,23 @@ def move_to_top(num, a, b, sortedarr):
 	distance_to_top = num_index
 	path = []
 	if distance_to_bottom + 1 < distance_to_top:
-		print(f"{num} going to bottom")
+		# print(f"{num} going to bottom")
 		for i in range(distance_to_bottom + 1):
 			#used to be a[-1]
-			if a.index(num) == 1 and a[0] < a[1]:
+			if a.index(num) == 1 and a[0] < a[-1]:
 				path.append("sa")
 				s([a])
 			else:
 				path.append("rra")
 				rr([a])
-				# print(a)
+				# # print(a)
 	else:
-		print(f'{num} going to top')
+		# print(f'{num} going to top')
 		for i in range(distance_to_top):
 			path.append("ra")
 			r([a])
-			# print(a)
-	print(f'path: {path}')
+			# # print(a)
+	# print(f'path: {path}')
 	return (path)
 
 def num_after_insert_target(num, a, sortedarr):
@@ -94,57 +113,20 @@ def	path_find(num, a, b, sortedarr):
 		path.extend(move_to_top(num, a, b, sortedarr))
 		# if a[a.index(num) - 1] != num_before_insert_target:
 		p(a, b)
-		print("b: ", b)
+		# print("b: ", b)
 		path.append("pb")
 		while a[-1] != num_before_insert_target:
 			path.append("ra")
 			r([a])
-			print("b: ", b)
+			# print("b: ", b)
 		p(b, a)
-		print("b: ", b)
+		# print("b: ", b)
 		path.append("pa")
 		
-		print(path)
-		print(a)
+		# print(path)
+		# print(a)
 		return(path)
-		 
-# Iterative function to find the longest increasing subsequence of a given list
-def findLIS(arr):
- 
-    # base case
-    if not arr:
-        return []
- 
-    # LIS[i] stores the longest increasing subsequence of sublist
-    # `arr[0…i]` that ends with `arr[i]`
-    LIS = [[] for _ in range(len(arr))]
- 
-    # LIS[0] denotes the longest increasing subsequence ending at `arr[0]`
-    LIS[0].append(arr[0])
- 
-    # start from the second element in the list
-    for i in range(1, len(arr)):
- 
-        # do for each element in sublist `arr[0…i-1]`
-        for j in range(i):
- 
-            # find the longest increasing subsequence that ends with `arr[j]`
-            # where `arr[j]` is less than the current element `arr[i]`
- 
-            if arr[j] < arr[i] and len(LIS[j]) > len(LIS[i]):
-                LIS[i] = LIS[j].copy()
- 
-        # include `arr[i]` in `LIS[i]`
-        LIS[i].append(arr[i])
- 
-    # `j` will store the index of LIS
-    j = 0
-    for i in range(len(arr)):
-        if len(LIS[j]) < len(LIS[i]):
-            j = i
- 
-    # print LIS
-    return(LIS[j])
+
 
 def sort_order(num, a, b, sortedarr):
 	num_index = a.index(num)
@@ -163,44 +145,65 @@ def	main(a):
 	copied = copy.deepcopy(a)
 	sortedarr = sorted(a)
 	b = []
-	lis = longest(a)
-	unsorted = sorted(list(filter(lambda elem: elem not in lis, a)))
-	print("UNSORTED", unsorted)
-	for num in unsorted:
-		x = path_find(num, a, b, sortedarr);
+	listcopy = longest(a)
+
+	unsorted = sorted(list(filter(lambda elem: elem not in listcopy, a)))
+	# print("UNSORTED", unsorted)
+	x = []
+	while unsorted:
+		# if unsorted and unsorted[0] == a[0]:
+		# 	unsorted.pop(0)
+		for num in unsorted:
+			previous_sorted_num = sortedarr[sortedarr.index(num) - 1]
+			if a[a.index(num) - 1] == previous_sorted_num:
+				continue
+			x.extend(path_find(num, a, b, sortedarr));
+		lis = longest(a)
+		unsorted = sorted(list(filter(lambda elem: elem not in lis, a)))
+		# print("LIS", lis)
+		# print("UNSORTED", unsorted)
+		# print("SORTED", sortedarr)
+		# print("\n\n")
 	if (a.index(sortedarr[0]) != 0):
 		x.extend(move_to_top(sortedarr[0], a, b, sortedarr))
 	
-	print("\n init: ", copied)
-	print("lis: ", lis)
-	print("unsorte:", unsorted)
-	print("result: ", a)
-	print("Sorted: ", sortedarr)
-	print("Path: ", x)
-	print("has been soirted?? :", a == sortedarr)
+	# print("\n init: ", copied)
+	# print("lis: ", listcopy)
+	# print("unsorte:", unsorted)
+	# print("result: ", a)
+	# print("Sorted: ", sortedarr)
+	# print("resultLis: ", longest(a))
+	# print("Path: ", x)
+	# print("has been soirted?? :", a == sortedarr)
+	# print("len: ", len(x))
+	return(x)
 
-
-test = [3, 2, 1]
+test = [1, 5, 2, 4, 3]
 arr = [10, 0, 1, 22, 9, 33, 21, 50, 41, 60]
 arr2 =[22, 50, 41, 60, 10, 0, 1, 9, 33, 21]
-arr3 = random.sample(range(0, 2344), 15)
-print(arr3)
-# print(longest(arr2))
+arr3 = random.sample(range(0, 2344), 500)
+checkcopy = copy.deepcopy(arr3)
+# print(arr3)
+# # print(longest(arr2))
 lis = longest(arr3)
 unsorted = list(filter(lambda elem: elem not in lis, arr2))
+print("arr", arr3)
 print("\n lis:", lis)
-# print("lis: ", findLIS(arr3))
-# print("unsorted", unsorted)
-# print("init: ", arr2)
-# print("lis", lis)
+# # print("lis: ", findLIS(arr3))
+# # print("unsorted", unsorted)
+# # print("init: ", arr2)
+# # print("lis", lis)
 # # # s([arr])
-# # print(arr)
+# # # print(arr)
 # rr([arr])
-# print(arr)
+# # print(arr)
 # p(arr, b)
-# print("arr: ", arr)
-# print ("b: ", b)
+# # print("arr: ", arr)
+# # print ("b: ", b)
 # r([arr])
-# print(arr)
+# # print(arr)
 
-main(arr3)
+# path = main(arr3)
+# # print("Path", path, "\n\n\n")
+# # print("dic", dic)
+# check(checkcopy, path)
