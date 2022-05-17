@@ -1,4 +1,6 @@
 from gettext import find
+from select import kevent
+from typing import final
 from lis import *
 import copy
 import random
@@ -18,20 +20,26 @@ move_below(y, x)
 
 
 """
-def check(arr, path):
-	b = []
-	sortedarr = sorted(arr)
+def make_moves(a, b, path):
 	for instruction in path:
 		if instruction == "ra":
-			r([arr])
+			r([a])
 		elif instruction == "rra":
-			rr([arr])
+			rr([a])
 		elif instruction == "pb":
-			p(arr, b)
+			p(a, b)
 		elif instruction == "pa":
-			p(b, arr)
+			p(b, a)
+		elif instruction == "rr":
+			r([a, b])
+		elif instruction == "rrr":
+			rr([a, b])
 		elif instruction == "sa":
-			s([arr])
+			s([a])
+		elif instruction == "sb":
+			s([b])
+	print("MoveMade")
+	print_stacks(a, b)
 
 	# print("\n\n")
 	# # print(arr)
@@ -145,39 +153,146 @@ def	path_find(num, a, b, sortedarr):
 		# print(a)
 		return(path)
 
-def	path_find_from_b(num, a, b, sortedarr):
+def	path_find_from_b(num, acopy, bcopy, sortedarr):
+	a = copy.deepcopy(acopy)
+	b = copy.deepcopy(bcopy)
 	num_index = b.index(num)
 	num_after_insert_target = sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)]
 	num_before_insert_target = sortedarr[sortedarr.index(num) - 1]
-	distance_to_bottom = len(b) - num_index - 1
-	distance_to_top = num_index
 	path = []
-	# if num_index == index_after_insert_target or num_index == index_before_insert_target:
-	if 1:
-		path.extend("rotate" * min(distance_to_bottom, distance_to_top))
-		while a[-1] != num_before_insert_target:
-			path.append("ra")
-			r([a])
-			# print("b: ", b)
-		p(b, a)
-		# print("b: ", b)
-		path.append("pa")
-		
-		# print(path)
-		# print(a)
-		return(path)
+	num_dist_top = dist_to_top(b, num)
+	num_dist_bottom = dist_to_bottom(b, num)
+	# print("INIT")
+	# print_stacks(a, b)
+	if num_after_insert_target in a:
+		target_index = a.index(num_after_insert_target)
+		target_num = num_after_insert_target
+		targ_dist_top = dist_to_top(a, target_num)
+		targ_dist_bottom = dist_to_bottom(a, target_num)
+		if num_dist_top < num_dist_bottom + 1:
+			if targ_dist_top - num_dist_top > targ_dist_bottom + 1:
+				for i in range(num_dist_top):
+					path.append("rb")
+					r([b])
+				for i in range(targ_dist_bottom + 1):
+					path.append("rra")
+					rr([a])
+				path.append("pa")
+				p(b, a)
+			else:
+				for i in range(num_dist_top):
+					if a.index(target_num) != 0:
+						path.append("rr")
+						r([a, b])
+					else:
+						path.append("rb")
+						r([b])
+				if a.index(target_num) != 0:
+					for i in range(dist_to_top(a, target_num)):
+						path.append("ra")
+						r([a])
+				path.append("pa")
+				p(b, a)
+		else:
+			if targ_dist_bottom + 1 - num_dist_bottom > targ_dist_top:
+				for i in range(num_dist_bottom + 1):
+					path.append("rrb")
+					rr([b])
+				for i in range(targ_dist_top):
+					path.append("ra")
+					r([a])
+			else:
+				for i in range(num_dist_top):
+					if a.index(target_num) != 0:
+						path.append("rr")
+						r([a, b])
+					else:
+						path.append("rrb")
+						rr([b])
+				if a.index(target_num) != 0:
+					for i in range(dist_to_bottom(a, target_num) + 1):
+						path.append("rra")
+						rr([a])
+			path.append("pa")
+			p(b, a)
+
+	elif num_before_insert_target in a:
+		target_index = a.index(num_before_insert_target)
+		target_num = num_before_insert_target
+		targ_dist_top = dist_to_top(a, target_num)
+		targ_dist_bottom = dist_to_bottom(a, target_num)
+		if num_dist_top < num_dist_bottom:
+			if targ_dist_top + 1 - num_dist_top > targ_dist_bottom:
+				for i in range(num_dist_top):
+					path.append("rb")
+					r([b])
+				for i in range(targ_dist_bottom):
+					path.append("rra")
+					rr([a])
+			else:
+				for i in range(num_dist_top):
+					if a.index(target_num) != len(arr) - 1:
+						path.append("rr")
+						r([a, b])
+					else:
+						path.append("rb")
+						r([b])
+				if a.index(target_num) != len(arr) - 1:
+					for i in range(dist_to_top(a, target_num) + 1):
+						path.append("ra")
+						r([a])
+			path.append("pa")
+			p(b, a)
+
+		else:
+			if targ_dist_bottom - num_dist_bottom + 1 > targ_dist_top:
+				for i in range(num_dist_bottom + 1):
+					path.append("rrb")
+					rr([b])
+				for i in range(dist_to_top(a, target_num) + 1):
+					path.append("ra")
+					r([a])
+			else:
+				for i in range(num_dist_bottom + 1):
+					if a.index(target_num) != len(arr) - 1:
+						path.append("rrr")
+						rr([a, b])
+					else:
+						path.append("rrb")
+						rr([b])
+				if a.index(target_num) != len(arr) - 1:
+					for i in range(dist_to_bottom(a, target_num)):
+						path.append("rra")
+						rr([a])
+			path.append("pa")
+			p(b, a)
+	# print("PATH: ", path)
+	# print("A: ", a)
+	# print("B: ", b)
+	# print("FINAL")
+	# print_stacks(a, b)
+	return(path)
+		 
 
 def print_stacks(a, b):
 	print("A:", a)
 	print("B:", b)
 
 def reinsert_b(a, b, sortedarr):
-	acopy = copy.deepcopy(a)
-	bcopy = copy.deepcopy(b)
-	lengths = []
-	for num in b:
-		lengths.append(path_find(num, ))
+	final_path = []
+	while b:
+		lengths = []
+		for num in b:
+			print()
+			x = path_find_from_b(num, a, b, sortedarr)
+			print(f"num: {num}, pathL: {x}")
+			lengths.append(x)
+		current_move = min(lengths, key=len)
+		print(f"currentmove {current_move}")
+		final_path.extend(current_move)
+		make_moves(a, b, current_move)
 
+	print("path", final_path, len(final_path))
 
 def move_unsorted_to_b(a, b):
 	sub = longest(a)
@@ -246,15 +361,15 @@ def	main(a):
 
 test = [1, 5, 2, 4, 3]
 arr = [10, 0, 1, 22, 9, 33, 21, 50, 41, 60]
-arr2 =[22, 50, 41, 60, 10, 0, 1, 9, 33, 21]
-arr3 = random.sample(range(0, 2344), 5)
+arr2 = [2173, 1159, 560, 2274, 726, 1278, 251, 893, 915, 2165]
+arr3 = random.sample(range(0, 2344), 10)
 checkcopy = copy.deepcopy(arr2)
 # print(arr3)
 # # print(longest(arr2))
 lis = longest(arr2)
-unsorted = list(filter(lambda elem: elem not in lis, arr3))
-print("arr", arr3)
-print("\n lis:", lis)
+unsorted = list(filter(lambda elem: elem not in lis, arr2))
+print("arr", arr2)
+print("\nlis:", lis)
 # # print("lis: ", findLIS(arr3))
 # # print("unsorted", unsorted)
 # # print("init: ", arr2)
@@ -268,7 +383,7 @@ print("\n lis:", lis)
 # # print ("b: ", b)
 # r([arr])
 # # print(arr)
-main(arr3)
+main(arr2)
 # path = main(arr3)
 # # print("Path", path, "\n\n\n")
 # # print("dic", dic)
