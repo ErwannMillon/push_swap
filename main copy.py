@@ -340,10 +340,10 @@ def move_to_beginning(a, sortedarr):
 
 def tester():
 	average = 0
-	n = 100
+	n = 20
 	results = [0, 0, 0, 0]
 	for i in range(n):
-		arr = random.sample(range(0, 2344), 100)
+		arr = random.sample(range(0, 2344), 500)
 		returnval = main(arr)
 		for i in range(4):
 			results[i] += len(returnval[i])
