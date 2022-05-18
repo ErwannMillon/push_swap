@@ -142,6 +142,65 @@ def	path_find(num, a, b, sortedarr):
 		# print(a)
 		return(path)
 
+def reinsert_before_target(path, num, a, b, sortedarr):
+	num_index = b.index(num)
+	num_after_insert_target = sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)]
+	num_before_insert_target = sortedarr[sortedarr.index(num) - 1]
+	num_dist_top = dist_to_top(b, num)
+	num_dist_bottom = dist_to_bottom(b, num)
+
+	target_index = a.index(num_after_insert_target)
+	target_num = num_after_insert_target
+	targ_dist_top = dist_to_top(a, target_num)
+	targ_dist_bottom = dist_to_bottom(a, target_num)
+	if num_dist_top < num_dist_bottom + 1:
+		if targ_dist_top - num_dist_top > targ_dist_bottom + 1:
+			for i in range(num_dist_top):
+				path.append("rb")
+				r([b])
+			for i in range(targ_dist_bottom + 1):
+				path.append("rra")
+				rr([a])
+			path.append("pa")
+			p(b, a)
+		else:
+			for i in range(num_dist_top):
+				if a.index(target_num) != 0:
+					path.append("rr")
+					r([a, b])
+				else:
+					path.append("rb")
+					r([b])
+			if a.index(target_num) != 0:
+				for i in range(dist_to_top(a, target_num)):
+					path.append("ra")
+					r([a])
+			path.append("pa")
+			p(b, a)
+	else:
+		if targ_dist_bottom + 1 - num_dist_bottom > targ_dist_top:
+			for i in range(num_dist_bottom + 1):
+				path.append("rrb")
+				rr([b])
+			for i in range(targ_dist_top):
+				path.append("ra")
+				r([a])
+		else:
+			for i in range(num_dist_top):
+				if a.index(target_num) != 0:
+					path.append("rr")
+					r([a, b])
+				else:
+					path.append("rrb")
+					rr([b])
+			if a.index(target_num) != 0:
+				for i in range(dist_to_bottom(a, target_num) + 1):
+					path.append("rra")
+					rr([a])
+		path.append("pa")
+		p(b, a)
+	return(a, b)
+
 def	path_find_from_b(num, acopy, bcopy, sortedarr):
 	a = copy.deepcopy(acopy)
 	b = copy.deepcopy(bcopy)
@@ -154,56 +213,57 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 	# print("INIT")
 	# print_stacks(a, b)
 	if num_after_insert_target in a:
-		target_index = a.index(num_after_insert_target)
-		target_num = num_after_insert_target
-		targ_dist_top = dist_to_top(a, target_num)
-		targ_dist_bottom = dist_to_bottom(a, target_num)
-		if num_dist_top < num_dist_bottom + 1:
-			if targ_dist_top - num_dist_top > targ_dist_bottom + 1:
-				for i in range(num_dist_top):
-					path.append("rb")
-					r([b])
-				for i in range(targ_dist_bottom + 1):
-					path.append("rra")
-					rr([a])
-				path.append("pa")
-				p(b, a)
-			else:
-				for i in range(num_dist_top):
-					if a.index(target_num) != 0:
-						path.append("rr")
-						r([a, b])
-					else:
-						path.append("rb")
-						r([b])
-				if a.index(target_num) != 0:
-					for i in range(dist_to_top(a, target_num)):
-						path.append("ra")
-						r([a])
-				path.append("pa")
-				p(b, a)
-		else:
-			if targ_dist_bottom + 1 - num_dist_bottom > targ_dist_top:
-				for i in range(num_dist_bottom + 1):
-					path.append("rrb")
-					rr([b])
-				for i in range(targ_dist_top):
-					path.append("ra")
-					r([a])
-			else:
-				for i in range(num_dist_top):
-					if a.index(target_num) != 0:
-						path.append("rr")
-						r([a, b])
-					else:
-						path.append("rrb")
-						rr([b])
-				if a.index(target_num) != 0:
-					for i in range(dist_to_bottom(a, target_num) + 1):
-						path.append("rra")
-						rr([a])
-			path.append("pa")
-			p(b, a)
+		# target_index = a.index(num_after_insert_target)
+		# target_num = num_after_insert_target
+		# targ_dist_top = dist_to_top(a, target_num)
+		# targ_dist_bottom = dist_to_bottom(a, target_num)
+		# if num_dist_top < num_dist_bottom + 1:
+		# 	if targ_dist_top - num_dist_top > targ_dist_bottom + 1:
+		# 		for i in range(num_dist_top):
+		# 			path.append("rb")
+		# 			r([b])
+		# 		for i in range(targ_dist_bottom + 1):
+		# 			path.append("rra")
+		# 			rr([a])
+		# 		path.append("pa")
+		# 		p(b, a)
+		# 	else:
+		# 		for i in range(num_dist_top):
+		# 			if a.index(target_num) != 0:
+		# 				path.append("rr")
+		# 				r([a, b])
+		# 			else:
+		# 				path.append("rb")
+		# 				r([b])
+		# 		if a.index(target_num) != 0:
+		# 			for i in range(dist_to_top(a, target_num)):
+		# 				path.append("ra")
+		# 				r([a])
+		# 		path.append("pa")
+		# 		p(b, a)
+		# else:
+		# 	if targ_dist_bottom + 1 - num_dist_bottom > targ_dist_top:
+		# 		for i in range(num_dist_bottom + 1):
+		# 			path.append("rrb")
+		# 			rr([b])
+		# 		for i in range(targ_dist_top):
+		# 			path.append("ra")
+		# 			r([a])
+		# 	else:
+		# 		for i in range(num_dist_top):
+		# 			if a.index(target_num) != 0:
+		# 				path.append("rr")
+		# 				r([a, b])
+		# 			else:
+		# 				path.append("rrb")
+		# 				rr([b])
+		# 		if a.index(target_num) != 0:
+		# 			for i in range(dist_to_bottom(a, target_num) + 1):
+		# 				path.append("rra")
+		# 				rr([a])
+		# 	path.append("pa")
+		# 	p(b, a)
+		a, b = reinsert_before_target(path, num, a, b, sortedarr)
 
 	elif num_before_insert_target in a:
 		# print(f"Inserting after previous num in sorted, target: {num_before_insert_target}, num{num}")
@@ -256,7 +316,69 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 						rr([a])
 			path.append("pa")
 			p(b, a)
-	# else:
+	else:
+		min_index = a.index(min(a))
+		for i in range (min_index, min_index + len(a)):
+			if a[i % len(a)] > num:
+				break
+		
+		target_index = i % len(a)
+		target_num = a[target_index]
+		if target_num < num:
+			target_num = min(a)
+			target_index = min_index
+		targ_dist_top = dist_to_top(a, target_num)
+		targ_dist_bottom = dist_to_bottom(a, target_num)
+		# print("\n\n***************************")
+		# print(f"new function, num {num}, target {a[target_index]}, neighborL {num_after_insert_target},")
+		# print("A: ", a)
+		# print("S:", sortedarr)
+		if num_dist_top < num_dist_bottom + 1:
+			if targ_dist_top - num_dist_top > targ_dist_bottom + 1:
+				for i in range(num_dist_top):
+					path.append("rb")
+					r([b])
+				for i in range(targ_dist_bottom + 1):
+					path.append("rra")
+					rr([a])
+				path.append("pa")
+				p(b, a)
+			else:
+				for i in range(num_dist_top):
+					if a.index(target_num) != 0:
+						path.append("rr")
+						r([a, b])
+					else:
+						path.append("rb")
+						r([b])
+				if a.index(target_num) != 0:
+					for i in range(dist_to_top(a, target_num)):
+						path.append("ra")
+						r([a])
+				path.append("pa")
+				p(b, a)
+		else:
+			if targ_dist_bottom + 1 - num_dist_bottom > targ_dist_top:
+				for i in range(num_dist_bottom + 1):
+					path.append("rrb")
+					rr([b])
+				for i in range(targ_dist_top):
+					path.append("ra")
+					r([a])
+			else:
+				for i in range(num_dist_top):
+					if a.index(target_num) != 0:
+						path.append("rr")
+						r([a, b])
+					else:
+						path.append("rrb")
+						rr([b])
+				if a.index(target_num) != 0:
+					for i in range(dist_to_bottom(a, target_num) + 1):
+						path.append("rra")
+						rr([a])
+			path.append("pa")
+			p(b, a)
 		# print("NO NEIGHBOR IN A")
 	# print("PATH: ", path)
 	# print("A: ", a)
@@ -283,6 +405,7 @@ def reinsert_b(a, b, sortedarr):
 				lengths.append(x)
 		current_move = min(lengths, key=len)
 		# print(f"currentmove {current_move}")
+		# print_stacks(a, b)
 		final_path.extend(current_move)
 		make_moves(a, b, current_move)
 
@@ -340,11 +463,17 @@ def move_to_beginning(a, sortedarr):
 
 def tester():
 	average = 0
-	n = 20
+	n = 200
 	results = [0, 0, 0, 0]
 	for i in range(n):
-		arr = random.sample(range(0, 2344), 500)
+		arr = random.sample(range(0, 2344), 100)
+		errcopy = copy.deepcopy(arr)
+		checkcopy = copy.deepcopy(arr)
 		returnval = main(arr)
+		make_moves(checkcopy, [], returnval[0])
+		if checkcopy != sorted(checkcopy):
+			print("ERRORRRR: Could not sort: ", errcopy)
+			return()
 		for i in range(4):
 			results[i] += len(returnval[i])
 	for i in range(4):
@@ -399,8 +528,14 @@ checkcopy = copy.deepcopy(test)
 # # print(longest(arr2))
 faila = [1451, 1465, 1466, 1469, 1487, 1491, 1556, 1614, 1640, 1641, 1431, 1645, 1646, 1658, 1507, 1707, 1719, 1734, 1792, 1812, 1670, 1819, 1826, 1925, 1945, 1955, 1959, 1962, 1963, 1965, 1971, 1975, 1994, 1996, 1997, 1998, 2003, 2011, 2017, 2018, 2028, 2053, 2056, 2058, 2088, 2220, 2259, 2268, 2283, 2285, 2294, 2302, 2307, 2310, 2318, 2339, 3, 27, 33, 34, 68, 100, 102, 104, 108, 168, 193, 197, 218, 232, 336, 358, 365, 397, 420, 421, 440, 463, 537, 539, 774, 798, 817, 832, 837, 1047, 1051, 1058, 1078, 1102, 1103, 1187, 1189, 1196, 1214, 1220, 1246, 1322, 1324, 1325, 1334, 1340, 1362, 1377, 1380, 1388, 1390, 1400, 1403, 1410, 1416]
 failb = [861, 518, 953, 699, 1113, 1120, 857, 672, 315, 1038, 1033, 486, 1212, 1263, 94, 2114, 465, 1181, 2100, 591, 1021, 287, 756, 1308, 1151, 997, 649, 237, 249, 746, 1701, 743, 1018, 297, 653, 592, 328, 326, 1157, 992, 938, 279, 772, 308, 1291, 522, 867, 1114, 1290, 83, 1519, 677, 318, 504, 978, 949, 745, 637, 701, 480, 273, 521, 1294, 507, 891, 2127, 525, 131, 1024, 1854, 1697, 1905, 895, 152, 1434, 487, 2149, 1684, 1198, 1276, 664, 2203, 924, 2125, 885, 1117, 944, 2202, 268]
-path = main(test)[0]
-make_moves(checkcopy, [], path)
+# path = main(test)[0]
+# make_moves(checkcopy, [], path)
 tester()
 if checkcopy == sorted(checkcopy): print("SORTED")
+print ("A:", checkcopy)
 print ("S:", sorted(checkcopy))
+print("\n\n")
+for i in range(len(checkcopy)):
+	if checkcopy[i] != sorted(checkcopy)[i]:
+		print("!!!", end="")
+	print(checkcopy[i], ",", end=" ")
