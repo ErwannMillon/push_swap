@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/19 17:45:07 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/19 18:19:52 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ t_node	*create_node(int num, t_arr sortedarr)
 	new->next_in_sorted = sortedarr.arr[(new->sorted_index + 1) % sortedarr.len];
 	new->next = NULL;
 	ft_printf("i %d num %d\n", new->num, new->next_in_sorted);
-
 	return (new);
 }
 
-t_node	**create_list(int *a, int len, t_arr sortedarr)
+t_node	*create_list(int *a, int len, t_arr sortedarr)
 {
 	int		i;
 	t_node	**root;
@@ -49,17 +48,7 @@ t_node	**create_list(int *a, int len, t_arr sortedarr)
 		current = current->next;
 		i++;
 	}
-	ft_print_list(root);
-	ft_print_list(root);
-	ft_print_list(root);
-	ft_print_list(root);
-	ft_print_list(root);
-	ft_print_list(root);
-	// s(root);
-	// s(root);
-	// ft_printf("\n");
-	// ft_print_list(root);
-	return (root);
+	return (first);
 }
 
 int	parse_args(int argc, char **argv)
@@ -67,8 +56,8 @@ int	parse_args(int argc, char **argv)
 	int		i;
 	int		*a;
 	t_arr	sortedarr;
-	t_node	**root;
-	t_node	**b;
+	t_node	*root;
+	t_node	*b;
 
 	b = malloc(sizeof(int) * argc);
 	a = malloc(argc * sizeof(int));
@@ -81,23 +70,19 @@ int	parse_args(int argc, char **argv)
 	sortedarr.arr = ft_bubble_sort_copy(a, argc - 1);
 	sortedarr.len = argc - 1;
 	root = create_list(a, argc -1, sortedarr);
-	
-	// ft_print_list(root);
-	// ft_print_list(root);
-	// ft_print_list(root);
-	// s(root);
-	// ft_printf("\n");
-	// ft_print_list(root);
 
+	ft_print_list(root);
+	s(&root);
+	ft_print_list(root);
 	// ft_print_list(root);
-	// p(root, b);
+	p(&root, &b);
 	// ft_printf("\n");
-	// ft_print_list(root);
-	// ft_print_list(b);
+	ft_print_list(root);
+	ft_print_list(b);
 
 	// ft_print_arr(sortedarr.arr, argc - 1, 0);
 	// ft_printf("\n");
 	// ft_bubble_sort(sortedarr, argc - 1);
 	// ft_print_arr(sortedarr, argc - 1, 0);
-
+	return(0);
 }

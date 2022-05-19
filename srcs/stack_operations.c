@@ -24,6 +24,8 @@ void	p(t_node **src, t_node **dest)
 	*src = (*src)->next;
 	if (dest && *dest)
 		tmp->next = (*dest);
+	else
+		tmp->next = NULL;
 	*dest = tmp;
 
 }

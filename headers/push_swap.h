@@ -23,7 +23,7 @@ typedef struct s_arr
 void	p(t_node **src, t_node **dest);
 void	s(t_node **root);
 //LIST UTILS
-void	ft_print_list(t_node **root);
+void	ft_print_list(t_node *root);
 //PARSING
 int		parse_args(int argc, char **argv);
 
