@@ -1,7 +1,8 @@
 SRCS := main.c \
 		input_parse.c \
 		list_utils.c \
-		stack_operations.c
+		stack_operations.c \
+		lis_algo.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers

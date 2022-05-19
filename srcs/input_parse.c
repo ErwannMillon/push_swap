@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/19 18:19:52 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/20 00:11:40 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,19 @@ t_node	*create_list(int *a, int len, t_arr sortedarr)
 	return (first);
 }
 
-int	parse_args(int argc, char **argv)
+t_arr	*parse_args_to_arr(int argc, char **argv)
 {
 	int		i;
-	int		*a;
-	t_arr	sortedarr;
-	t_node	*root;
-	t_node	*b;
+	int		*arr;
+	t_arr	*array;
 
-	b = malloc(sizeof(int) * argc);
-	a = malloc(argc * sizeof(int));
+
+	arr = malloc(argc * sizeof(int));
 	i = 0;
 	while (i < argc - 1)
 	{
-		a[i] = ft_atoi(argv[i + 1]);
+		arr[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
-	sortedarr.arr = ft_bubble_sort_copy(a, argc - 1);
-	sortedarr.len = argc - 1;
-	root = create_list(a, argc -1, sortedarr);
-
-	ft_print_list(root);
-	s(&root);
-	ft_print_list(root);
-	// ft_print_list(root);
-	p(&root, &b);
-	// ft_printf("\n");
-	ft_print_list(root);
-	ft_print_list(b);
-
-	// ft_print_arr(sortedarr.arr, argc - 1, 0);
-	// ft_printf("\n");
-	// ft_bubble_sort(sortedarr, argc - 1);
-	// ft_print_arr(sortedarr, argc - 1, 0);
-	return(0);
+	return(arr);
 }
