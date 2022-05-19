@@ -1,17 +1,20 @@
 SRCS := main.c \
-		input_parse.c
+		input_parse.c \
+		list_utils.c \
+		stack_operations.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers
 SRCDIR = ./srcs
 ASAN = -fsanitize=address -g
 LIBFTDIR = $(SRCDIR)/libftextended
+LIBFTINCLUDES = $(LIBFTDIR)/headers
 SRCSPREFIX = $(addprefix $(SRCDIR)/, $(SRCS))
 OBJS := $(SRCSPREFIX:%.c=%.o)
 #ADD CFLAGS!!!
 
 %.o: %.c
-	gcc -ggdb -I$(INCLUDEDIR) $(ASAN) -c $< -o $@
+	gcc -ggdb -I$(INCLUDEDIR) -I$(LIBFTINCLUDES) $(ASAN) -c $< -o $@
 all: $(NAME)
 $(NAME): $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -ggdb $(OBJS) $(ASAN) -o $(NAME) $(LIBFTDIR)/libft.a

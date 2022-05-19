@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/19 16:07:38 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/19 17:39:00 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int argc, char **argv)
+void	ft_print_list(t_node **root)
 {
-	const char *argv_test[] = {"pushswap", "1", "5", "2", "9", "7", "22", "-100", "4"};
-	argc = 9;
-	parse_args(argc, argv_test);
+	t_node	*current;
 
+	current = *root;
+	while (current)
+	{
+		ft_printf("%d, ", current->num);
+		current = current->next;
+	}
+	ft_printf("\n");
 }
