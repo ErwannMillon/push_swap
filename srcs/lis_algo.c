@@ -1,55 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lis_algo.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
+/*   Updated: 2022/05/20 15:38:03 by gmillon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-void	update_lis_arrays(int *lis, int *prev_index, int i, int j)
-{
-	lis[i] = lis[j] + 1;
-	prev_index[i] = j;
-}
-
-void	init_lis_arrays(int *lis, int *prev_index, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		lis[i] = 1;
-		prev_index[i] = i;
-		i++;
-	}
-	ft_print_arr(lis, len, 0);
-	ft_printf("\n");
-	ft_print_arr(prev_index, len, 0);
-
-}
-
-const int	**lis_len(const int *arr, int len)
-{
-	int			*lis;
-	int			*prev_index;
-	int			i;
-	int			j;
-	int			**results;
-
-	i = 1;
-	lis = malloc(sizeof(int) * (len + 1));
-	prev_index = malloc(sizeof(int) * (len + 1));
-	init_lis_arrays(lis, prev_index, len);
-	results = malloc(sizeof(int *) * 2);
-	while (i < len)
-	{
-		j = 0;
-		while (j < i)
-		{
-			if (arr[i] > arr[j] && lis[i] < lis[j] + 1)
-				update_lis_arrays(lis, prev_index, i, j);
-			j++;
-		}
-		i++;
-	}
-	results[0] = lis;
-	results[1] = prev_index;
-	return ((const int **)results);
-}
 
 int	*get_lis_max(int *arr, int len, const int *lis, const int *prev)
 {
@@ -59,9 +20,9 @@ int	*get_lis_max(int *arr, int len, const int *lis, const int *prev)
 	int			*results;
 
 	results = malloc(2 * sizeof(int));
+	max_len = 0;
 	index_to_add = 0;
 	i = 0;
-	//Get max in this loop, then mallox sub to maxlen, then count down the indexes from maxlen to do reverse opti
 	while (i < len)
 	{
 		if (max_len < lis[i])
@@ -76,15 +37,7 @@ int	*get_lis_max(int *arr, int len, const int *lis, const int *prev)
 	return (results);
 }
 
-void	free_lis_vars(const int **len_and_prev, int *max_and_addindex)
-{
-	free((void *)len_and_prev[0]);
-	free((void *)len_and_prev[1]);
-	free((void *)len_and_prev);
-	free((void *)max_and_addindex);
-}
-
-t_arr get_lis_arr(int *arr, int len)
+t_arr	get_lis_arr(int *arr, int len)
 {
 	const int	**len_and_prev = lis_len(arr, len);
 	int			*max_and_addindex;
@@ -97,6 +50,9 @@ t_arr get_lis_arr(int *arr, int len)
 	index_to_add = max_and_addindex[1];
 	subsequence.len = max_index + 1;
 	subsequence.arr = malloc((max_index + 2) * sizeof(int));
+	subsequence.arr[max_index] = arr[index_to_add];
+	max_index--;
+	// ft_print_arr(len_and_prev[1], len);
 	while (index_to_add != len_and_prev[1][index_to_add])
 	{
 		index_to_add = len_and_prev[1][index_to_add];
@@ -104,6 +60,34 @@ t_arr get_lis_arr(int *arr, int len)
 		max_index--;
 	}
 	free_lis_vars(len_and_prev, max_and_addindex);
-	ft_print_arr(subsequence.arr, subsequence.len, 0);
 	return (subsequence);
+}
+
+t_arr	get_rotating_lis(int *arr, int len)
+{
+	int		i;
+	t_arr	max;
+	t_arr	current;
+	int		*rotated_arr;
+
+	i = 1;
+	max = get_lis_arr(arr, len);
+	while (i < len)
+	{
+		rotated_arr = malloc((len + 1) * sizeof(int));
+		ft_memcpy(rotated_arr, arr + i, (len - i) * sizeof(int));
+		ft_memcpy(rotated_arr + (len - i), arr, i * sizeof(int));
+		current = get_lis_arr(rotated_arr, len);
+		if (current.len > max.len)
+		{
+			free(max.arr);
+			max = current;
+		}
+		else
+			free(current.arr);
+		free(rotated_arr);
+		i++;
+	}
+	// ft_print_arr(max.arr, max.len);
+	return (max);
 }

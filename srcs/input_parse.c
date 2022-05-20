@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 12:10:14 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/20 15:34:32 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_node	*create_node(int num, t_arr sortedarr)
 	if (!new)
 		return (NULL);
 	new->num = num;
-	new->sorted_index = ft_get_list_index(num, sortedarr.arr, sortedarr.len);
+	new->sorted_index = ft_get_arr_index(num, sortedarr.arr, sortedarr.len);
 	if (new->sorted_index == 0)
 		new->previous_in_sorted = sortedarr.len - 1;
 	else
@@ -51,11 +51,11 @@ t_node	*create_list(int *a, int len, t_arr sortedarr)
 	return (first);
 }
 
-int	*parse_args_to_arr(int argc, char **argv)
+t_arr	parse_args_to_arr(int argc, char **argv)
 {
 	int		i;
 	int		*arr;
-
+	t_arr	array;
 
 	arr = malloc(argc * sizeof(int));
 	i = 0;
@@ -64,5 +64,7 @@ int	*parse_args_to_arr(int argc, char **argv)
 		arr[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
-	return(arr);
+	array.arr = arr;
+	array.len = argc -1;
+	return(array);
 }

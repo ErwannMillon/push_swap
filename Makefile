@@ -2,7 +2,12 @@ SRCS := main.c \
 		input_parse.c \
 		list_utils.c \
 		stack_operations.c \
-		lis_algo.c
+		lis_algo.c \
+		lis_algo2.c \
+		cleanup_functions.c \
+		list_search.c \
+		num_utils.c \
+		move_operations.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers
@@ -15,10 +20,10 @@ OBJS := $(SRCSPREFIX:%.c=%.o)
 #ADD CFLAGS!!!
 
 %.o: %.c
-	gcc -ggdb -I$(INCLUDEDIR) -I$(LIBFTINCLUDES) $(ASAN) -c $< -o $@
+	gcc -ggdb3 -I$(INCLUDEDIR) -I$(LIBFTINCLUDES) -c $< -o $@
 all: $(NAME)
 $(NAME): $(LIBFTDIR)/libft.a $(OBJS)
-	gcc -ggdb $(OBJS) $(ASAN) -o $(NAME) $(LIBFTDIR)/libft.a
+	gcc -ggdb3 $(OBJS) -o $(NAME) $(LIBFTDIR)/libft.a
 $(LIBFTDIR)/libft.a:
 	$(MAKE) -C $(LIBFTDIR)
 test: $(NAME)

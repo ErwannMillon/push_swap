@@ -1,63 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   list_search.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 15:08:41 by gmillon          ###   ########.fr       */
+/*   Created: 2022/05/20 14:58:30 by gmillon           #+#    #+#             */
+/*   Updated: 2022/05/20 15:31:17 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_print_list(t_node *root)
+int	ft_get_list_index(int num, t_node *root)
 {
 	t_node	*current;
+	int		index;
 
+	index = 0;
 	current = root;
 	while (current)
 	{
-		ft_printf("%d, ", current->num);
+		if (current->num == num)
+			break ;
 		current = current->next;
+		index++;
 	}
-	ft_printf("\n");
-}
-
-t_node	*ft_last_elem(t_node *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next)
+	if (!current)
 	{
-		lst = lst->next;
+		ft_printf("ERROR, %d num not in list\n", num);
+		return (-1);
 	}
-	return (lst);
+	return (index);
 }
 
-int	ft_list_len(t_node *lst)
+int	dist_to_top(int num, t_node *root)
 {
-	int	len;
-
-	len = 1;
-	if (!lst)
-		return (0);
-	while (lst->next)
-	{
-		len++;
-		lst = lst->next;
-	}
-	return (len);
+	return (ft_get_list_index(num, root));
 }
 
-void	ft_print_stacks(t_node *a, t_node *b)
+int dist_to_bottom(int num, t_node *root)
 {
-	ft_printf("A: ");
-	ft_print_list(a);
-	ft_printf("B: ");
-	ft_print_list(b);
-	ft_printf("\n");
+	const int len = ft_list_len(root);
+	const int num_index = ft_get_list_index(num, root);
+
+	return (len - num_index - 1);
 }
-
-
