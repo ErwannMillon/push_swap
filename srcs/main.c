@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 16:48:21 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/20 22:57:47 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ int	main(int argc, char **argv)
 	// unsorted = unsorted_lis_filter(lis, arr);
 	path = move_unsorted_to_b(a, arr, lis);
 	exit_cleanup(lis, sortedarr, a, arr);
+	
 }
