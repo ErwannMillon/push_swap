@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 18:51:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 23:09:46 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/20 23:33:44 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,3 +64,15 @@ t_arr	move_to_top(int num, t_node *root)
 	}
 	return (path);
 }
+
+// t_arr move_to_beginning(t_node *root, t_arr sortedarr)
+// {
+// 	t_arr		path;
+// 	const int	target_index = ft_get_list_index(sortedarr.arr[0], root);
+// 	//POTENTIAL BUG FROM FUNCTION REUSE
+// 	if (target_index != 0)
+// 	{
+// 		if 
+// 	}
+
+// }
