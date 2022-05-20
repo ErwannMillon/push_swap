@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 00:11:40 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/20 12:10:14 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ t_node	*create_list(int *a, int len, t_arr sortedarr)
 	return (first);
 }
 
-t_arr	*parse_args_to_arr(int argc, char **argv)
+int	*parse_args_to_arr(int argc, char **argv)
 {
 	int		i;
 	int		*arr;
-	t_arr	*array;
 
 
 	arr = malloc(argc * sizeof(int));
