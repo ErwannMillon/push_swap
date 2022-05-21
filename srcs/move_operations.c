@@ -6,31 +6,31 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 18:51:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 23:33:44 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/21 18:04:51 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_arr	rr_to_top(int num, t_node *root, t_arr path)
+t_arr	rr_to_top(int num, t_node **root, t_arr path)
 {
-	const int	d_bottom = dist_to_bottom(num, root);
+	const int	d_bottom = dist_to_bottom(num, *root);
 	int			i;
 
 	i = 0;
 	while (i < d_bottom + 1)
 	{
-		if (ft_get_list_index(num, root) == 1
-			&& root->num < ft_last_elem(root)->num)
+		if (ft_get_list_index(num, *root) == 1
+			&& (*root)->num < ft_last_elem((*root))->num)
 		{
 			path.arr[i] = SA;
-			s(&root);
-			ft_print_list(root);
+			s(root);
+			ft_print_list(*root);
 		}
 		else
 		{
 			path.arr[i] = RRA;
-			rr(&root);
+			rr(root);
 		}
 		path.len++;
 		i++;
@@ -38,13 +38,14 @@ t_arr	rr_to_top(int num, t_node *root, t_arr path)
 	return (path);
 }
 
-t_arr	move_to_top(int num, t_node *root)
+t_arr	move_to_top(int num, t_node **root)
 {
 	t_arr		path;
-	const int	d_bottom = dist_to_bottom(num, root);
-	const int	d_top = dist_to_top(num, root);
+	const int	d_bottom = dist_to_bottom(num, *root);
+	const int	d_top = dist_to_top(num, *root);
 	int			i;
 
+	path.len = 0;
 	i = 0;
 	if (d_bottom + 1 < d_top)
 	{
@@ -52,16 +53,7 @@ t_arr	move_to_top(int num, t_node *root)
 		path = rr_to_top(num, root, path);
 	}
 	else
-	{
-		path.arr = malloc(sizeof(int) * (d_top));
-		while (i < d_top)
-		{
-			r(&root);
-			path.arr[i] = RA;
-			path.len++;
-			i++;
-		}
-	}
+		path = call_n_times(&r, RA, d_top, root);
 	return (path);
 }
 

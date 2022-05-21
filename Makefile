@@ -9,7 +9,8 @@ SRCS := main.c \
 		num_utils.c \
 		move_operations.c \
 		path_find_from_b.c \
-		move_unsorted_to_b.c
+		move_unsorted_to_b.c \
+		list_utils2.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers
@@ -25,13 +26,13 @@ OBJS := $(SRCSPREFIX:%.c=%.o)
 	gcc -ggdb3 -I$(INCLUDEDIR) -I$(LIBFTINCLUDES) -c $< -o $@
 all: $(NAME)
 $(NAME): $(LIBFTDIR)/libft.a $(OBJS)
-	gcc -ggdb3 $(OBJS) -o $(NAME) $(LIBFTDIR)/libft.a
+	gcc -ggdb3 $(OBJS) $(CFLAGS) -o $(NAME) $(LIBFTDIR)/libft.a
 $(LIBFTDIR)/libft.a:
 	$(MAKE) -C $(LIBFTDIR)
-test: $(NAME)
-	gcc -ggdb $(SRCDIR)/main.c $(SRCS) $(LIBFTDIR)/libft.a
-asan: $(OBJS)
-	gcc -fsanitize=address $(OBJS) -o $(NAME)
+test: $(LIBFTDIR)/libft.a $(OBJS)
+	gcc -fsanitize=address $(OBJS) -o test_$(NAME) $(LIBFTDIR)/libft.a
+asan: $(LIBFTDIR)/libft.a $(OBJS)
+	gcc -fsanitize=address $(OBJS) -o $(NAME) $(LIBFTDIR)/libft.a
 git:
 	git add $(SRCSPREFIX) Makefile $(INCLUDEDIR) .gitmodules
 clean:

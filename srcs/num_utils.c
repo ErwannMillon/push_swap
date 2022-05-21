@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:24:09 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/21 14:15:28 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/21 17:22:41 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_arr	extend_path(t_arr arr, t_arr extension)
 {
 	t_arr	newpath;
 
-	newpath.arr = malloc((arr.len + extension.len + 2) * sizeof(int));
+	newpath.arr = malloc((arr.len + extension.len) * sizeof(int));
 	if (arr.len && arr.arr)
 	{
 		ft_memcpy(newpath.arr, arr.arr, arr.len * sizeof(int));
@@ -41,6 +41,7 @@ t_arr	extend_path(t_arr arr, t_arr extension)
 		ft_memcpy(newpath.arr + arr.len, extension.arr, extension.len * sizeof(int));
 		free(extension.arr);
 	}
+	newpath.len = arr.len + extension.len;
 	return (newpath);
 }
 

@@ -45,11 +45,19 @@ void		p(t_node **src, t_node **dest);
 void		r(t_node **root);
 void		rr(t_node **root);
 void		s(t_node **root);
+t_arr		double_r(t_node **a, t_node **b);
+t_arr		double_rr(t_node **a, t_node **b);
+t_arr		push_path(t_node **src, t_node **dest, int operation);
+t_arr		call_n_times(void(*f)(t_node **), int operation, int n, t_node **root);
 //MOVE OPERATIONS
-t_arr		move_to_top(int num, t_node *root);
+t_arr		rr_to_top(int num, t_node **root, t_arr path);
+t_arr		move_to_top(int num, t_node **root);
 
 //MOVE UNSORTED TO B
+t_arr		chunk_check(t_arr subarray, t_arr arr, t_arr unsorted, t_arr moved);
 int			get_num_to_push(t_arr sub, t_node *a, t_arr moved);
+void		init_move_unsorted_arrs(t_arr *unsorted, t_arr *moved, t_arr *sub, t_arr *path);
+t_arr		move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis);
 
 //LIST SEARCH UTILS
 int			dist_to_top(int num, t_node *root);
@@ -60,6 +68,7 @@ int			ft_get_list_index(int num, t_node *root);
 t_arr		extend_path(t_arr arr, t_arr extension);
 
 //LIST UTILS
+void		print_path(t_arr path);
 int			ft_list_len(t_node *lst);
 t_node		*ft_last_elem(t_node *lst);
 void		ft_print_list(t_node *root);
