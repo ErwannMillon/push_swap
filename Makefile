@@ -8,7 +8,8 @@ SRCS := main.c \
 		list_search.c \
 		num_utils.c \
 		move_operations.c \
-		path_find_from_b.c
+		path_find_from_b.c \
+		move_unsorted_to_b.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers
