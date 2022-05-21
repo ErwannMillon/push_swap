@@ -10,7 +10,10 @@ SRCS := main.c \
 		move_operations.c \
 		path_find_from_b.c \
 		move_unsorted_to_b.c \
-		list_utils2.c
+		list_utils2.c \
+		reinsert_after_target.c \
+		reinsert_before_target.c \
+		reinsert_before_closest.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers

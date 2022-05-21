@@ -59,6 +59,15 @@ int			get_num_to_push(t_arr sub, t_node *a, t_arr moved);
 void		init_move_unsorted_arrs(t_arr *unsorted, t_arr *moved, t_arr *sub, t_arr *path);
 t_arr		move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis);
 
+//PATHFIND FROM B
+t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path);
+t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path);
+t_arr	reinsert_before_target(t_node *num, t_node **a, t_node **b);
+t_arr	top_insert_after(t_node *num, t_node **a, t_node **b, t_arr path);
+t_arr	bottom_insert_after(t_node *num, t_node **a, t_node **b, t_arr path);
+t_arr	reinsert_after_target(t_node *num, t_node **a, t_node **b);
+t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b, t_arr sortedarr);
+
 //LIST SEARCH UTILS
 int			dist_to_top(int num, t_node *root);
 int			dist_to_bottom(int num, t_node *root);
