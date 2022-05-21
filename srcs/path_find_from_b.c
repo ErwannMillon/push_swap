@@ -6,13 +6,13 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/22 00:08:46 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/22 01:21:03 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b, t_arr sortedarr)
+t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b)
 {
 	t_arr		path;
 	const int	num_index = ft_get_list_index(num->num, *b);
@@ -27,4 +27,30 @@ t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b, t_arr sortedarr)
 		path = reinsert_after_target(num, a, b);
 	else
 		path = reinsert_before_closest(num, a, b);
+	return (path);
+}
+
+t_arr	reinsert_sort(t_node **a, t_node **b)
+{
+	t_node	*current;
+	t_arr	min_path;
+	t_arr	current_path;
+	t_arr	final_path;
+
+	final_path.len = 0;
+	final_path.arr = NULL;
+	min_path.arr = NULL;
+	while (*b)
+	{
+		current = *b;
+		while (current)
+		{
+			current_path = path_find_from_b(current, a, b);
+			if (min_path.arr == NULL || (current_path.len < min_path.len && current_path.len > 0))
+			{
+				min_path = current_path;
+			}
+			current = current->next;
+		}
+	}
 }
