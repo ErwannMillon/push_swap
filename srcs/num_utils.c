@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:24:09 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 16:39:24 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/21 14:15:28 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,16 @@ t_arr	extend_path(t_arr arr, t_arr extension)
 	t_arr	newpath;
 
 	newpath.arr = malloc((arr.len + extension.len + 2) * sizeof(int));
-	ft_memcpy(newpath.arr, arr.arr, arr.len * sizeof(int));
-	ft_memcpy(newpath.arr + arr.len, extension.arr, extension.len * sizeof(int));
-	free(arr.arr);
-	free(extension.arr);
+	if (arr.len && arr.arr)
+	{
+		ft_memcpy(newpath.arr, arr.arr, arr.len * sizeof(int));
+		free(arr.arr);
+	}
+	if (extension.len && extension.arr)
+	{
+		ft_memcpy(newpath.arr + arr.len, extension.arr, extension.len * sizeof(int));
+		free(extension.arr);
+	}
 	return (newpath);
 }
 

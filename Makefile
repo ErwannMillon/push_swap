@@ -33,7 +33,7 @@ test: $(NAME)
 asan: $(OBJS)
 	gcc -fsanitize=address $(OBJS) -o $(NAME)
 git:
-	git add $(SRCSPREFIX) Makefile $(INCLUDEDIR)
+	git add $(SRCSPREFIX) Makefile $(INCLUDEDIR) .gitmodules
 clean:
 	$(MAKE) -C $(LIBFTDIR)/ clean
 	rm -f $(OBJS)
