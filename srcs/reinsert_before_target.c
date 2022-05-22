@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 23:39:45 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/21 23:59:13 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/22 02:04:21 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 	int			i;
 
 	i = 0;
-	if (dist_to_bottom(num->next_in_sorted, a) + 1 > dist_to_top(num->next_in_sorted, a))
+	if (dist_to_bottom(num->next_in_sorted, *a) + 1 > dist_to_top(num->next_in_sorted, *a))
 	{
 		path = extend_path(path, call_n_times(&rr, RRB, num_dist_bottom + 1, b));
-		path = extend_path(path, call_n_times(&r, RA, dist_to_top(num->next_in_sorted, a), a));
+		path = extend_path(path, call_n_times(&r, RA, dist_to_top(num->next_in_sorted, *a), a));
 	}
 	else
 	{
@@ -84,4 +84,5 @@ t_arr	reinsert_before_target(t_node *num, t_node **a, t_node **b)
 		path = extend_path(path, top_insert_before(num, a, b, path));
 	else
 		path = extend_path(path, bottom_insert_before(num, a, b, path));
+	return (path);
 }

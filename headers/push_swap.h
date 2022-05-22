@@ -68,6 +68,7 @@ t_arr	bottom_insert_after(t_node *num, t_node **a, t_node **b, t_arr path);
 t_arr	reinsert_after_target(t_node *num, t_node **a, t_node **b);
 t_arr	reinsert_before_closest(t_node *num, t_node **a, t_node **b);
 t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b);
+t_arr	reinsert_sort(t_node **a, t_node **b);
 
 //LIST SEARCH UTILS
 int			dist_to_top(int num, t_node *root);
@@ -82,6 +83,7 @@ void		print_path(t_arr path);
 int			ft_list_len(t_node *lst);
 t_node		*ft_last_elem(t_node *lst);
 void		ft_print_list(t_node *root);
+t_node		**list_copy(t_node *root);
 //PARSING
 t_node		*create_list(int *a, int len, t_arr sortedarr);
 t_arr		parse_args_to_arr(int argc, char **argv);

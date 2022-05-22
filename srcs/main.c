@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/21 18:15:07 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/22 01:54:55 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int	main(int argc, char **argv)
 	path = move_unsorted_to_b(&a, &b, arr, lis);
 	print_path(path);
 	ft_print_stacks(a, b);
+	path = extend_path(path, reinsert_sort(&a, &b));
+
+
 	free(path.arr);
 	exit_cleanup(lis, sortedarr, a, arr);
 	

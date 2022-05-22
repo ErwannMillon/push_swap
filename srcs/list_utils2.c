@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:37:07 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/21 17:29:52 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/22 01:49:07 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,25 @@ void	print_path(t_arr path)
 		ft_printf("s[path.arr[i]]: %s\n", s[path.arr[i]]);
 		i++;
 	}
+}
+
+t_node **list_copy(t_node *root)
+{
+	t_node	*copy_current;
+	t_node	*src_current;
+	t_node	**copy_root;
+	
+	src_current = root;
+	copy_current = ft_memcpy_alloc(src_current, sizeof(t_node));
+	copy_root = &copy_current;
+	while (src_current)
+	{
+		if (src_current->next)
+			copy_current->next = ft_memcpy_alloc(src_current->next, sizeof(t_node));
+		else
+			copy_current->next = NULL;
+		src_current = src_current->next;
+		copy_current = copy_current->next;
+	}
+	return (copy_root);
 }

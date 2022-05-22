@@ -45,5 +45,8 @@ fclean: clean
 	$(MAKE) -C $(LIBFTDIR)/ fclean
 	rm -f $(NAME)
 re: fclean $(NAME)
-
+proj_clean:
+	rm -f $(OBJS)
+	rm -f $(NAME)
+re_proj: proj_clean $(NAME)
 .PHONY:	all clean fclean re 
