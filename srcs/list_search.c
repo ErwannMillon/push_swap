@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:58:30 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 11:55:30 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:30:59 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_get_list_index(int num, t_node *root)
 	}
 	if (!current)
 	{
-		ft_printf("%d num not in list\n", num);
+		// ft_printf("%d num not in list\n", num);
 		return (-1);
 	}
 	return (index);

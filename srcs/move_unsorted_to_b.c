@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:44:36 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 14:37:30 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:44:56 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_arr	chunk_check(t_arr subarray, t_arr arr, t_arr unsorted, t_arr moved)
 {
-	if (arr.len > 200)
+	if (arr.len > 900)
 	{
 		subarray.arr = unsorted.arr;
 		subarray.len = (unsorted.len) / 2 + moved.len;
