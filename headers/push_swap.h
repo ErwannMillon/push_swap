@@ -50,6 +50,7 @@ t_arr		double_rr(t_node **a, t_node **b);
 t_arr		push_path(t_node **src, t_node **dest, int operation);
 t_arr		call_n_times(void(*f)(t_node **), int operation, int n, t_node **root);
 //MOVE OPERATIONS
+t_arr 		move_min_to_start(t_node **root);
 t_arr		rr_to_top(int num, t_node **root, t_arr path);
 t_arr		move_to_top(int num, t_node **root);
 
@@ -71,6 +72,7 @@ t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b);
 t_arr	reinsert_sort(t_node **a, t_node **b);
 
 //LIST SEARCH UTILS
+t_node		*get_list_min(t_node *root);
 int			dist_to_top(int num, t_node *root);
 int			dist_to_bottom(int num, t_node *root);
 int			ft_get_list_index(int num, t_node *root);
@@ -83,7 +85,7 @@ void		print_path(t_arr path);
 int			ft_list_len(t_node *lst);
 t_node		*ft_last_elem(t_node *lst);
 void		ft_print_list(t_node *root);
-t_node		**list_copy(t_node *root);
+t_node		*list_copy(t_node *root);
 //PARSING
 t_node		*create_list(int *a, int len, t_arr sortedarr);
 t_arr		parse_args_to_arr(int argc, char **argv);

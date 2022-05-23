@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 18:51:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/21 18:04:51 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 13:45:59 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,17 @@ t_arr	move_to_top(int num, t_node **root)
 	}
 	else
 		path = call_n_times(&r, RA, d_top, root);
+	return (path);
+}
+
+t_arr move_min_to_start(t_node **root)
+{
+	t_arr	path;
+	t_node	*min_node = get_list_min(*root);
+
+	path.arr = NULL;
+	path.len = 0;
+	path = move_to_top(min_node->num, root);
 	return (path);
 }
 

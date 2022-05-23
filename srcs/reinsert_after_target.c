@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 23:42:58 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/22 02:04:05 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 11:42:08 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_arr	top_insert_after(t_node *num, t_node **a, t_node **b, t_arr path)
 	while (i < num_dist_top)
 	{
 		if (ft_get_list_index(num->previous_in_sorted, *a) != ft_list_len(*a) - 1)
-			path = extend_path(path, double_rr(a, b));
+			path = extend_path(path, double_r(a, b));
 		else
 			path = extend_path(path, call_n_times(&r, RB, 1, b));
 		i++;

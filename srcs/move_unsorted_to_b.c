@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:44:36 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/21 18:20:22 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:37:30 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ t_arr	move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis)
 	int		num_to_push;
 
 	ft_printf("MOVE UNSORED TO B FUNCTION \n\n\n");
+
+	ft_printf("LIS:\n");
+	ft_print_arr(lis.arr, lis.len);
+	// ft_printf("lis is sorted? %d \n\n", is_sorted(lis.arr));
 	unsorted = unsorted_lis_filter(lis, arr);
 	init_move_unsorted_arrs(&unsorted, &moved, &sub, &path);
 	ft_printf("unsorted\n");
