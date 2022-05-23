@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 15:38:16 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:24:03 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ void	init_lis_arrays(int *lis, int *prev_index, int len)
 		prev_index[i] = i;
 		i++;
 	}
-	// ft_print_arr(lis, len);
-	// ft_printf("\n");
-	// ft_print_arr(prev_index, len);
-
 }
 
 const int	**lis_len(const int *arr, int len)

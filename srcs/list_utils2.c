@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:37:07 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 15:19:33 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:24:44 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_path(t_arr path)
 {
-	int	i;
+	int			i;
 	const char	*s[] = {"x", "pa", "pb", "sa", "sb", "ss", "rr",
 		"ra", "rb", "rrb", "rra", "rrr"};
 
@@ -27,12 +27,12 @@ void	print_path(t_arr path)
 	}
 }
 
-t_node *list_copy(t_node *root)
+t_node	*list_copy(t_node *root)
 {
 	t_node	*copy_current;
 	t_node	*src_current;
 	t_node	*copy_root;
-	
+
 	src_current = root;
 	copy_current = ft_memcpy_alloc(src_current, sizeof(t_node));
 	copy_root = copy_current;

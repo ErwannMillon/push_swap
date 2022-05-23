@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/22 02:04:32 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:53:27 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_node	*get_list_min(t_node *root)
 {
 	t_node	*current;
 	t_node	*min_node;
-	
+
 	current = root;
 	while (current)
 	{
@@ -29,7 +29,7 @@ t_node	*get_list_min(t_node *root)
 
 t_node	*get_closest_greater(t_node *a, t_node *search_num, t_node *min)
 {
-	t_node *current;
+	t_node	*current;
 	int		min_num;
 
 	current = get_list_min(a);
@@ -37,14 +37,14 @@ t_node	*get_closest_greater(t_node *a, t_node *search_num, t_node *min)
 	while (current)
 	{
 		if (current->num > search_num->num)
-			return(current);
+			return (current);
 		current = current->next;
 	}
 	current = a;
 	while (current->num != min_num)
 	{
 		if (current->num > search_num->num)
-			return(current);
+			return (current);
 		current = current->next;
 	}
 	return (min);
@@ -54,9 +54,8 @@ t_arr	top_insert_before_closest(t_node *num, t_node **a, t_node **b, t_arr path)
 {
 	int				i;
 	const int		num_dist_top = ft_get_list_index(num->num, *b);
-	const int		num_dist_bottom = dist_to_bottom(num->num, *b);
 	const t_node	*target = get_closest_greater(*a, num, get_list_min(*a));
-	
+
 	i = 0;
 	if (dist_to_top(target->num, *a) - num_dist_top > dist_to_bottom(target->num, *a) + 1)
 	{
@@ -76,6 +75,7 @@ t_arr	top_insert_before_closest(t_node *num, t_node **a, t_node **b, t_arr path)
 		path = extend_path(path, call_n_times(&r, RA, dist_to_top(target->num, *a), a));
 	return (extend_path(path, push_path(b, a, PA)));
 }
+
 //INSERTS NUM_TO_PUSH BEFORE THE NEXT SORTED NUM IN A BY MOVING 
 //NUM_TO_PUSH TO TOP OF B WITH REVERSE ROTATES
 t_arr	bottom_insert_before_closest(t_node *num, t_node **a, t_node **b, t_arr path)
@@ -83,7 +83,7 @@ t_arr	bottom_insert_before_closest(t_node *num, t_node **a, t_node **b, t_arr pa
 	const int		num_dist_top = ft_get_list_index(num->num, *b);
 	const int		num_dist_bottom = dist_to_bottom(num->num, *b);
 	const t_node	*target = get_closest_greater(*a, num, get_list_min(*a));
-	int			i;
+	int				i;
 
 	i = 0;
 	if (dist_to_bottom(target->num, *a) + 1 > dist_to_top(target->num, *a))
@@ -109,10 +109,10 @@ t_arr	bottom_insert_before_closest(t_node *num, t_node **a, t_node **b, t_arr pa
 
 t_arr	reinsert_before_closest(t_node *num, t_node **a, t_node **b)
 {
-	const int num_dist_top = ft_get_list_index(num->num, *b);
-	const int num_dist_bottom = dist_to_bottom(num->num, *b);
-	t_arr path;
-	int i;
+	const int	num_dist_top = ft_get_list_index(num->num, *b);
+	const int	num_dist_bottom = dist_to_bottom(num->num, *b);
+	t_arr		path;
+	int			i;
 
 	i = 0;
 	path.arr = NULL;

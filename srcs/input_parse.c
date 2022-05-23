@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 15:34:32 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:40:28 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,12 @@ t_arr	parse_args_to_arr(int argc, char **argv)
 	i = 0;
 	while (i < argc - 1)
 	{
+		check_if_int(argv[i + 1]);
 		arr[i] = ft_atoi(argv[i + 1]);
 		i++;
 	}
 	array.arr = arr;
 	array.len = argc -1;
-	return(array);
+	check_if_dup(array);
+	return (array);
 }

@@ -6,13 +6,13 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 15:38:03 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:48:15 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	*get_lis_max(int *arr, int len, const int *lis, const int *prev)
+int	*get_lis_max(int len, const int *lis)
 {
 	int			max_len;
 	int			index_to_add;
@@ -45,14 +45,13 @@ t_arr	get_lis_arr(int *arr, int len)
 	t_arr		subsequence;
 	int			max_index;
 
-	max_and_addindex = get_lis_max(arr, len, len_and_prev[0], len_and_prev[1]);
+	max_and_addindex = get_lis_max(len, len_and_prev[0]);
 	max_index = max_and_addindex[0] - 1;
 	index_to_add = max_and_addindex[1];
 	subsequence.len = max_index + 1;
 	subsequence.arr = malloc((max_index + 2) * sizeof(int));
 	subsequence.arr[max_index] = arr[index_to_add];
 	max_index--;
-	// ft_print_arr(len_and_prev[1], len);
 	while (index_to_add != len_and_prev[1][index_to_add])
 	{
 		index_to_add = len_and_prev[1][index_to_add];
@@ -88,6 +87,5 @@ t_arr	get_rotating_lis(int *arr, int len)
 		free(rotated_arr);
 		i++;
 	}
-	// ft_print_arr(max.arr, max.len);
 	return (max);
 }

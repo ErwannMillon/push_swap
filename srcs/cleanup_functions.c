@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:49:05 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/20 15:35:22 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:44:37 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	exit_cleanup(t_arr lis, t_arr sortedarr, t_node *a, t_arr arr)
 	free(sortedarr.arr);
 	ft_free_list(a);
 	free(arr.arr);
+}
+
+void	free_move_unsorted(t_arr moved, t_arr unsorted)
+{
+	free(moved.arr);
+	free(unsorted.arr);
 }

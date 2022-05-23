@@ -34,7 +34,7 @@ typedef struct s_arr
 //LIS FUNCTIONS
 void		init_lis_arrays(int *lis, int *prev_index, int len);
 void		update_lis_arrays(int *lis, int *prev_index, int i, int j);
-int			*get_lis_max(int *arr, int len, const int *lis, const int *prev);
+int			*get_lis_max(int len, const int *lis);
 void		free_lis_vars(const int **len_and_prev, int *max_and_addindex);
 t_arr		get_lis_arr(int *arr, int len);
 t_arr		get_rotating_lis(int *arr, int len);
@@ -86,11 +86,15 @@ int			ft_list_len(t_node *lst);
 t_node		*ft_last_elem(t_node *lst);
 void		ft_print_list(t_node *root);
 t_node		*list_copy(t_node *root);
+//ERROR HANDLING
+void	check_if_dup(t_arr arr);
+void	check_if_int(char *arg);
 //PARSING
 t_node		*create_list(int *a, int len, t_arr sortedarr);
 t_arr		parse_args_to_arr(int argc, char **argv);
 void		ft_print_stacks(t_node *a, t_node *b);
 //FREE FUNCTIONS
+void		free_move_unsorted(t_arr moved, t_arr unsorted);
 void		exit_cleanup(t_arr lis, t_arr sortedarr, t_node *a, t_arr arr);
 void		ft_free_list(t_node *root);
 //NUM UTILS

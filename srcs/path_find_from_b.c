@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 15:26:34 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:49:04 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b)
 {
 	t_arr		path;
-	const int	num_index = ft_get_list_index(num->num, *b);
-	const int	num_dist_top = num_index;
-	const int	num_dist_bottom = dist_to_bottom(num->num, *b);
 
 	path.arr = NULL;
 	path.len = 0;
@@ -27,8 +24,6 @@ t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b)
 		path = reinsert_after_target(num, a, b);
 	else
 		path = reinsert_before_closest(num, a, b);
-	// ft_printf("Path Found for %d: \n", num->num);
-	// print_path(path);
 	return (path);
 }
 
@@ -61,11 +56,18 @@ t_arr	reinsert_sort(t_node **a, t_node **b)
 				min_num = current;
 				min_path = current_path;
 			}
+			else
+			{
+				free (current_path.arr);
+			}
 			current = current->next;
+			ft_free_list(acopy);
+			ft_free_list(bcopy);
 		}
 		ft_printf("min_num: %d\n", min_num->num);
 		// print_path(min_path);
 		final_path = extend_path(final_path, path_find_from_b(min_num, a, b));
+		free(min_path.arr);
 		min_path.arr = NULL;
 		ft_print_stacks(*a, *b);
 		ft_printf("\n\n");

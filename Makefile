@@ -13,7 +13,9 @@ SRCS := main.c \
 		list_utils2.c \
 		reinsert_after_target.c \
 		reinsert_before_target.c \
-		reinsert_before_closest.c
+		reinsert_before_closest.c \
+		composite_stack_operations.c \
+		handle_input_errors.c
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
 INCLUDEDIR = ./headers
@@ -26,7 +28,7 @@ OBJS := $(SRCSPREFIX:%.c=%.o)
 #ADD CFLAGS!!!
 
 %.o: %.c
-	gcc -ggdb3 -I$(INCLUDEDIR) -I$(LIBFTINCLUDES) -c $< -o $@
+	gcc -ggdb3 $(CFLAGS) -I$(INCLUDEDIR) -I$(LIBFTINCLUDES) -c $< -o $@
 all: $(NAME)
 $(NAME): $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -ggdb3 $(OBJS) $(CFLAGS) -o $(NAME) $(LIBFTDIR)/libft.a

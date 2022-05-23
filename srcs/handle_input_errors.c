@@ -1,61 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   handle_input_errors.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:24:24 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:41:06 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_print_list(t_node *root)
+void	check_if_int(char *arg)
 {
-	t_node	*current;
+	int	i;
 
-	current = root;
-	while (current)
+	i = 0;
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
+	while (arg[i])
 	{
-		ft_printf("%d, ", current->num);
-		current = current->next;
+		if (!(ft_isdigit(arg[i])))
+		{
+			ft_putstr_fd("Error\n", 2);
+			exit(1);
+		}
+		i++;
 	}
-	ft_printf("\n");
 }
 
-t_node	*ft_last_elem(t_node *lst)
+void	check_if_dup(t_arr arr)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
+	int	i;
+	int	k;
+
+	k = 0;
+	i = 0;
+	while (i < arr.len)
 	{
-		lst = lst->next;
+		k = 0;
+		while (k < i)
+		{
+			if (arr.arr[k] == arr.arr[i])
+			{
+				ft_putstr_fd("Error\n", 2);
+				exit(1);
+			}
+			k++;
+		}
+		i++;
 	}
-	return (lst);
-}
-
-int	ft_list_len(t_node *lst)
-{
-	int	len;
-
-	len = 1;
-	if (!lst)
-		return (0);
-	while (lst->next)
-	{
-		len++;
-		lst = lst->next;
-	}
-	return (len);
-}
-
-void	ft_print_stacks(t_node *a, t_node *b)
-{
-	ft_printf("A: ");
-	ft_print_list(a);
-	ft_printf("B: ");
-	ft_print_list(b);
-	ft_printf("\n");
 }

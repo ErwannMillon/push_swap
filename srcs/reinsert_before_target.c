@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 23:39:45 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 15:30:27 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/05/23 16:52:40 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@ t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 {
 	int			i;
 	const int 	num_dist_top = ft_get_list_index(num->num, *b);
-	const int	num_dist_bottom = dist_to_bottom(num->num, *b);
-	
+
 	i = 0;
 	if (dist_to_top(num->next_in_sorted, *a) - num_dist_top > dist_to_bottom(num->next_in_sorted, *a) + 1)
 	{
 		path = move_to_top(num->num, b);
 		path = extend_path(path, call_n_times(&rr, RRA, dist_to_bottom(num->next_in_sorted, *a) + 1, a));
 		path = extend_path(path, push_path(b, a, PA));
-		// ft_printf("topinsertbefore\n");
-		// print_path(path);
 		return (path);
 	}
 	while (i < num_dist_top)
@@ -41,10 +38,9 @@ t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 	if (ft_get_list_index(num->next_in_sorted, *a) != 0)
 		path = extend_path(path, call_n_times(&r, RA, dist_to_top(num->next_in_sorted, *a), a));
 	path = extend_path(path, push_path(b, a, PA));
-	// ft_printf("topinsertbefore\n");
-	// print_path(path);
 	return (path);
 }
+
 //INSERTS NUM_TO_PUSH BEFORE THE NEXT SORTED NUM IN A BY MOVING 
 //NUM_TO_PUSH TO TOP OF B WITH REVERSE ROTATES
 t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
@@ -72,8 +68,6 @@ t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 		if (ft_get_list_index(num->next_in_sorted, *a) != 0)
 			path = extend_path(path, call_n_times(&rr, RRA, dist_to_bottom(num->next_in_sorted, *a) + 1, a));
 	}
-	// ft_printf("bottominsertbefore\n");
-	// print_path(path);
 	return (extend_path(path, push_path(b, a, PA)));
 }
 
@@ -85,7 +79,6 @@ t_arr	reinsert_before_target(t_node *num, t_node **a, t_node **b)
 	int			i;
 
 	i = 0;
-
 	path.arr = NULL;
 	path.len = 0;
 	if (num_dist_top < num_dist_bottom + 1)
