@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:49:04 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/03 20:56:06 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_arr	reinsert_sort(t_node **a, t_node **b)
 	final_path.len = 0;
 	final_path.arr = NULL;
 	min_path.arr = NULL;
-	ft_print_stacks(*a, *b);
+	if (DEBUG)
+		ft_print_stacks(*a, *b);
 
 	while (*b)
 	{
@@ -64,14 +65,24 @@ t_arr	reinsert_sort(t_node **a, t_node **b)
 			ft_free_list(acopy);
 			ft_free_list(bcopy);
 		}
-		ft_printf("min_num: %d\n", min_num->num);
-		// print_path(min_path);
+		if (DEBUG)
+		{ 
+				ft_printf("min_num: %d\n", min_num->num);
+				print_path(min_path);
+		}
 		final_path = extend_path(final_path, path_find_from_b(min_num, a, b));
+		if (DEBUG)
+		{
+			ft_printf("finalpath\n");
+			
+			print_path(final_path);
+		}
 		free(min_path.arr);
 		min_path.arr = NULL;
-		ft_print_stacks(*a, *b);
-		ft_printf("\n\n");
+		if (DEBUG)
+			ft_print_stacks(*a, *b);
+		// ft_printf("\n\n");
 	}
-	ft_print_stacks(*a, *b);
+	// ft_print_stacks(*a, *b);
 	return (final_path);
 }

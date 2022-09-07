@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:53:27 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/02 18:00:20 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_arr	top_insert_before_closest(t_node *num, t_node **a, t_node **b, t_arr path)
 	i = 0;
 	if (dist_to_top(target->num, *a) - num_dist_top > dist_to_bottom(target->num, *a) + 1)
 	{
-		path = move_to_top(num->num, b);
+		path = move_to_top(num->num, b, RB);
 		path = extend_path(path, call_n_times(&rr, RRA, dist_to_bottom(target->num, *a) + 1, a));
 		return (extend_path(path, push_path(b, a, PA)));
 	}

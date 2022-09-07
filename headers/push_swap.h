@@ -12,9 +12,10 @@
 # define RR 6
 # define RA 7
 # define RB 8
-# define RRB 9
-# define RRA 10
+# define RRA 9
+# define RRB 10
 # define RRR 11
+# define DEBUG 0
 
 typedef struct s_node
 {
@@ -51,8 +52,8 @@ t_arr		push_path(t_node **src, t_node **dest, int operation);
 t_arr		call_n_times(void(*f)(t_node **), int operation, int n, t_node **root);
 //MOVE OPERATIONS
 t_arr 		move_min_to_start(t_node **root);
-t_arr		rr_to_top(int num, t_node **root, t_arr path);
-t_arr		move_to_top(int num, t_node **root);
+t_arr		rr_to_top(int num, t_node **root, t_arr path, int operation);
+t_arr		move_to_top(int num, t_node **root, int operation);
 
 //MOVE UNSORTED TO B
 t_arr		chunk_check(t_arr subarray, t_arr arr, t_arr unsorted, t_arr moved);
@@ -93,6 +94,8 @@ void	check_if_int(char *arg);
 t_node		*create_list(int *a, int len, t_arr sortedarr);
 t_arr		parse_args_to_arr(int argc, char **argv);
 void		ft_print_stacks(t_node *a, t_node *b);
+void		print_path_output(t_arr path);
+
 //FREE FUNCTIONS
 void		free_move_unsorted(t_arr moved, t_arr unsorted);
 void		exit_cleanup(t_arr lis, t_arr sortedarr, t_node *a, t_arr arr);

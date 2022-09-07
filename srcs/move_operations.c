@@ -6,13 +6,13 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 18:51:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:42:32 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/02 18:04:48 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_arr	rr_to_top(int num, t_node **root, t_arr path)
+t_arr	rr_to_top(int num, t_node **root, t_arr path, int operation)
 {
 	const int	d_bottom = dist_to_bottom(num, *root);
 	int			i;
@@ -29,7 +29,10 @@ t_arr	rr_to_top(int num, t_node **root, t_arr path)
 		}
 		else
 		{
-			path.arr[i] = RRA;
+			if (operation == RA)
+				path.arr[i] = RRA;
+			else
+				path.arr[i] = RRB;
 			rr(root);
 		}
 		path.len++;
@@ -38,22 +41,20 @@ t_arr	rr_to_top(int num, t_node **root, t_arr path)
 	return (path);
 }
 
-t_arr	move_to_top(int num, t_node **root)
+t_arr	move_to_top(int num, t_node **root, int operation)
 {
 	t_arr		path;
 	const int	d_bottom = dist_to_bottom(num, *root);
 	const int	d_top = dist_to_top(num, *root);
-	int			i;
 
 	path.len = 0;
-	i = 0;
 	if (d_bottom + 1 < d_top)
 	{
 		path.arr = malloc(sizeof(int) * (d_bottom + 1));
-		path = rr_to_top(num, root, path);
+		path = rr_to_top(num, root, path, operation);
 	}
 	else
-		path = call_n_times(&r, RA, d_top, root);
+		path = call_n_times(&r, operation, d_top, root);
 	return (path);
 }
 
@@ -65,7 +66,7 @@ t_arr	move_min_to_start(t_node **root)
 	min_node = get_list_min(*root);
 	path.arr = NULL;
 	path.len = 0;
-	path = move_to_top(min_node->num, root);
+	path = move_to_top(min_node->num, root, RA);
 	return (path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 23:42:58 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:50:52 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/02 18:00:12 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_arr	top_insert_after(t_node *num, t_node **a, t_node **b, t_arr path)
 	i = 0;
 	if (targ_dist_top + 1 - num_dist_top > targ_dist_bottom)
 	{
-		path = move_to_top(num->num, b);
+		path = move_to_top(num->num, b, RB);
 		path = extend_path(path, call_n_times(&rr, RRA, targ_dist_bottom, a));
 		return (extend_path(path, push_path(b, a, PA)));
 	}
@@ -71,9 +71,6 @@ t_arr	reinsert_after_target(t_node *num, t_node **a, t_node **b)
 	const int	num_dist_top = ft_get_list_index(num->num, *b);
 	const int	num_dist_bottom = dist_to_bottom(num->num, *b);
 	t_arr		path;
-	int			i;
-
-	i = 0;
 
 	path.arr = NULL;
 	path.len = 0;

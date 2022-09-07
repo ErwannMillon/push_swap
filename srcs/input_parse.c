@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:40:28 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/02 11:23:19 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,18 @@ t_node	*create_node(int num, t_arr sortedarr)
 		new->previous_in_sorted = sortedarr.arr[new->sorted_index - 1];
 	new->next_in_sorted = sortedarr.arr[(new->sorted_index + 1) % sortedarr.len];
 	new->next = NULL;
-	ft_printf("i %d num %d\n", new->num, new->next_in_sorted);
+	if (DEBUG)
+		ft_printf("i %d num %d\n", new->num, new->next_in_sorted);
 	return (new);
 }
 
 t_node	*create_list(int *a, int len, t_arr sortedarr)
 {
 	int		i;
-	t_node	**root;
 	t_node	*first;
 	t_node	*current;
 
 	first = create_node(a[0], sortedarr);
-	root = &first;
 	current = first;
 	i = 1;
 	while (i < len)
