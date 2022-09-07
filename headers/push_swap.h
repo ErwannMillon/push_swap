@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:11 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 14:40:38 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 16:01:21 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_node
 	int				num;
 	int				sorted_index;
 	int				previous_in_sorted;
-	int				next_in_sorted;
+	int				next_sorted;
 	struct s_node	*next;
 }				t_node;
 
@@ -68,6 +68,7 @@ t_arr		call_n_times(void(*f)(t_node **), \
 t_arr		move_min_to_start(t_node **root);
 t_arr		rr_to_top(int num, t_node **root, t_arr path, int operation);
 t_arr		move_to_top(int num, t_node **root, int operation);
+t_arr		move_through_bottom(int num_dist_bottom, t_node **b, t_arr path);
 
 //MOVE UNSORTED TO B
 t_arr		chunk_check(t_arr subarray, t_arr arr, t_arr unsorted, t_arr moved);
@@ -115,7 +116,7 @@ void		print_path_output(t_arr path);
 
 //FREE FUNCTIONS
 void		free_move_unsorted(t_arr moved, t_arr unsorted);
-void		exit_cleanup(t_arr lis, t_arr sortedarr, t_node *a, t_arr arr);
+void		exit_cleanup(t_arr sortedarr, t_node *a, t_arr arr);
 void		ft_free_list(t_node *root);
 //NUM UTILS
 int			min(int a, int b);

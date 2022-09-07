@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:49:05 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/03 21:18:44 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 15:33:04 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void	free_lis_vars(const int **len_and_prev, int *max_and_addindex)
 	free((void *)max_and_addindex);
 }
 
-void	exit_cleanup(t_arr lis, t_arr sortedarr, t_node *a, t_arr arr)
+void	exit_cleanup(t_arr sortedarr, t_node *a, t_arr arr)
 {
-	free(lis.arr);
 	free(sortedarr.arr);
 	ft_free_list(a);
 	free(arr.arr);

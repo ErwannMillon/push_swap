@@ -27,7 +27,7 @@ t_arr	pathfind_from_b(t_node *num, t_node **a, t_node **b, int copy)
 		a = &tmp_a;
 		b = &tmp_b;
 	}
-	if (get_list_index(num->next_in_sorted, *a) != -1)
+	if (get_list_index(num->next_sorted, *a) != -1)
 		path = reinsert_before_target(num, a, b);
 	else if (get_list_index(num->previous_in_sorted, *a) != -1)
 		path = reinsert_after_target(num, a, b);

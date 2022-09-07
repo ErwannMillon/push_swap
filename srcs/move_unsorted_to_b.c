@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:44:36 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 14:44:57 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 15:32:46 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ t_arr	move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis)
 	}
 	moved.len++;
 	free_move_unsorted(moved, unsorted);
+	free(lis.arr);
 	return (path);
 }

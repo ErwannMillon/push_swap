@@ -6,26 +6,11 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 14:44:13 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 15:54:40 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_node	*get_list_min(t_node *root)
-{
-	t_node	*current;
-	t_node	*min_node;
-
-	current = root;
-	while (current)
-	{
-		if (current == root || current->num < min_node->num)
-			min_node = current;
-		current = current->next;
-	}
-	return (min_node);
-}
 
 t_node	*get_closest_greater(t_node *a, t_node *search_num, t_node *min)
 {
@@ -82,19 +67,23 @@ t_arr	top_insert_before_closest(t_node *num, t_node **a, \
 
 //INSERTS NUM_TO_PUSH BEFORE THE NEXT SORTED NUM IN A BY MOVING 
 //NUM_TO_PUSH TO TOP OF B WITH REVERSE ROTATES
+t_arr	align_a(const t_node *target, t_node **a, t_arr path)
+{
+	return (extend_path(path, \
+	call_n_times(&rr, RRA, dist_bottom(target->num, *a) + 1, a)));
+}
+
 t_arr	bottom_insert_before_closest(t_node *num, t_node **a, \
 									t_node **b, t_arr path)
 {
 	const int		num_dist_top = get_list_index(num->num, *b);
-	const int		num_dist_bottom = dist_bottom(num->num, *b);
 	const t_node	*target = get_closest_greater(*a, num, get_list_min(*a));
 	int				i;
 
 	i = 0;
 	if (dist_bottom(target->num, *a) + 1 > dist_top(target->num, *a))
 	{
-		path = extend_path(path, \
-			call_n_times(&rr, RRB, num_dist_bottom + 1, b));
+		path = move_through_bottom(dist_bottom(num->num, *b), b, path);
 		path = extend_path(path, \
 			call_n_times(&r, RA, dist_top(target->num, *a), a));
 	}
@@ -109,8 +98,7 @@ t_arr	bottom_insert_before_closest(t_node *num, t_node **a, \
 			i++;
 		}
 		if (get_list_index(target->num, *a) != 0)
-			path = extend_path(path, \
-			call_n_times(&rr, RRA, dist_bottom(target->num, *a) + 1, a));
+			path = align_a(target, a, path);
 	}
 	return (extend_path(path, push_path(b, a, PA)));
 }

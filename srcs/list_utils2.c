@@ -6,11 +6,26 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:37:07 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 13:28:39 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 15:54:45 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+t_node	*get_list_min(t_node *root)
+{
+	t_node	*current;
+	t_node	*min_node;
+
+	current = root;
+	while (current)
+	{
+		if (current == root || current->num < min_node->num)
+			min_node = current;
+		current = current->next;
+	}
+	return (min_node);
+}
 
 void	print_path_output(t_arr path)
 {
