@@ -202,7 +202,7 @@ def reinsert_before_target(path, num, a, b, sortedarr):
 		p(b, a)
 	return(a, b)
 
-def	path_find_from_b(num, acopy, bcopy, sortedarr):
+def	pathfind_from_b(num, acopy, bcopy, sortedarr):
 	a = copy.deepcopy(acopy)
 	b = copy.deepcopy(bcopy)
 	num_index = b.index(num)
@@ -399,7 +399,7 @@ def reinsert_b(a, b, sortedarr):
 		lengths = []
 		for num in b:
 			# print()
-			x = path_find_from_b(num, a, b, sortedarr)
+			x = pathfind_from_b(num, a, b, sortedarr)
 			# print(f"num: {num}, pathL: {x}")
 			if x:
 				# print_stacks(a, b)

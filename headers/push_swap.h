@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 12:58:11 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 13:43:44 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:40:38 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef struct s_node
 
 typedef struct s_arr
 {
-	int	*arr;
-	int	len;
+	int		*arr;
+	int		len;
+	t_node	*min_num;
 }		t_arr;
 
 //LIS FUNCTIONS
@@ -85,14 +86,14 @@ t_arr		bottom_insert_after(t_node *num, t_node **a, t_node **b, \
 															t_arr path);
 t_arr		reinsert_after_target(t_node *num, t_node **a, t_node **b);
 t_arr		reinsert_before_closest(t_node *num, t_node **a, t_node **b);
-t_arr		path_find_from_b(t_node *num, t_node **a, t_node **b, int copy);
+t_arr		pathfind_from_b(t_node *num, t_node **a, t_node **b, int copy);
 t_arr		reinsert_sort(t_node **a, t_node **b);
 
 //LIST SEARCH UTILS
 t_node		*get_list_min(t_node *root);
 int			dist_top(int num, t_node *root);
 int			dist_bottom(int num, t_node *root);
-int			ft_get_list_index(int num, t_node *root);
+int			get_list_index(int num, t_node *root);
 
 //ARR UTILS
 t_arr		extend_path(t_arr arr, t_arr extension);

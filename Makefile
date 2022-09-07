@@ -16,7 +16,7 @@ SRCS := main.c \
 		list_search.c \
 		num_utils.c \
 		move_operations.c \
-		path_find_from_b.c \
+		pathfind_from_b.c \
 		move_unsorted_to_b.c \
 		list_utils2.c \
 		reinsert_after_target.c \
