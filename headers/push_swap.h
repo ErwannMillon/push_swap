@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 12:58:11 by gmillon           #+#    #+#             */
+/*   Updated: 2022/09/07 13:43:44 by gmillon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "libft.h"
@@ -49,33 +61,37 @@ void		s(t_node **root);
 t_arr		double_r(t_node **a, t_node **b);
 t_arr		double_rr(t_node **a, t_node **b);
 t_arr		push_path(t_node **src, t_node **dest, int operation);
-t_arr		call_n_times(void(*f)(t_node **), int operation, int n, t_node **root);
+t_arr		call_n_times(void(*f)(t_node **), \
+						int operation, int n, t_node **root);
 //MOVE OPERATIONS
-t_arr 		move_min_to_start(t_node **root);
+t_arr		move_min_to_start(t_node **root);
 t_arr		rr_to_top(int num, t_node **root, t_arr path, int operation);
 t_arr		move_to_top(int num, t_node **root, int operation);
 
 //MOVE UNSORTED TO B
 t_arr		chunk_check(t_arr subarray, t_arr arr, t_arr unsorted, t_arr moved);
 int			get_num_to_push(t_arr sub, t_node *a, t_arr moved);
-void		init_move_unsorted_arrs(t_arr *unsorted, t_arr *moved, t_arr *sub, t_arr *path);
+void		init_move_unsorted_arrs(t_arr *unsorted, t_arr *moved, \
+									t_arr *sub, t_arr *path);
 t_arr		move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis);
 
 //PATHFIND FROM B
-t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path);
-t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path);
-t_arr	reinsert_before_target(t_node *num, t_node **a, t_node **b);
-t_arr	top_insert_after(t_node *num, t_node **a, t_node **b, t_arr path);
-t_arr	bottom_insert_after(t_node *num, t_node **a, t_node **b, t_arr path);
-t_arr	reinsert_after_target(t_node *num, t_node **a, t_node **b);
-t_arr	reinsert_before_closest(t_node *num, t_node **a, t_node **b);
-t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b);
-t_arr	reinsert_sort(t_node **a, t_node **b);
+t_arr		top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path);
+t_arr		bottom_insert_before(t_node *num, t_node **a, t_node **b, \
+														t_arr path);
+t_arr		reinsert_before_target(t_node *num, t_node **a, t_node **b);
+t_arr		top_insert_after(t_node *num, t_node **a, t_node **b, t_arr path);
+t_arr		bottom_insert_after(t_node *num, t_node **a, t_node **b, \
+															t_arr path);
+t_arr		reinsert_after_target(t_node *num, t_node **a, t_node **b);
+t_arr		reinsert_before_closest(t_node *num, t_node **a, t_node **b);
+t_arr		path_find_from_b(t_node *num, t_node **a, t_node **b, int copy);
+t_arr		reinsert_sort(t_node **a, t_node **b);
 
 //LIST SEARCH UTILS
 t_node		*get_list_min(t_node *root);
-int			dist_to_top(int num, t_node *root);
-int			dist_to_bottom(int num, t_node *root);
+int			dist_top(int num, t_node *root);
+int			dist_bottom(int num, t_node *root);
 int			ft_get_list_index(int num, t_node *root);
 
 //ARR UTILS
@@ -88,8 +104,8 @@ t_node		*ft_last_elem(t_node *lst);
 void		ft_print_list(t_node *root);
 t_node		*list_copy(t_node *root);
 //ERROR HANDLING
-void	check_if_dup(t_arr arr);
-void	check_if_int(char *arg);
+void		check_if_dup(t_arr arr);
+void		check_if_int(char *arg);
 //PARSING
 t_node		*create_list(int *a, int len, t_arr sortedarr);
 t_arr		parse_args_to_arr(int argc, char **argv);

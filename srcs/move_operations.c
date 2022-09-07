@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 18:51:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/02 18:04:48 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:05:44 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_arr	rr_to_top(int num, t_node **root, t_arr path, int operation)
 {
-	const int	d_bottom = dist_to_bottom(num, *root);
+	const int	d_bottom = dist_bottom(num, *root);
 	int			i;
 
 	i = 0;
@@ -44,8 +44,8 @@ t_arr	rr_to_top(int num, t_node **root, t_arr path, int operation)
 t_arr	move_to_top(int num, t_node **root, int operation)
 {
 	t_arr		path;
-	const int	d_bottom = dist_to_bottom(num, *root);
-	const int	d_top = dist_to_top(num, *root);
+	const int	d_bottom = dist_bottom(num, *root);
+	const int	d_top = dist_top(num, *root);
 
 	path.len = 0;
 	if (d_bottom + 1 < d_top)

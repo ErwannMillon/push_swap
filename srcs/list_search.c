@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 14:58:30 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:24:20 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:05:44 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	ft_get_list_index(int num, t_node *root)
 	return (index);
 }
 
-int	dist_to_top(int num, t_node *root)
+int	dist_top(int num, t_node *root)
 {
 	return (ft_get_list_index(num, root));
 }
 
-int	dist_to_bottom(int num, t_node *root)
+int	dist_bottom(int num, t_node *root)
 {
 	const int	len = ft_list_len(root);
 	const int	num_index = ft_get_list_index(num, root);

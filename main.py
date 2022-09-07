@@ -79,12 +79,12 @@ def r(stacks):
 			stack.append(stack.pop(0))
 			# # print(stack)
 	
-def dist_to_bottom(arr, num):
+def dist_bottom(arr, num):
 	num_index = arr.index(num)
 	distance_to_bottom = len(arr) - num_index - 1
 	return(distance_to_bottom)
 
-def dist_to_top(arr, num):
+def dist_top(arr, num):
 	num_index = arr.index(num)
 	return(num_index)
 
@@ -149,15 +149,15 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 	num_after_insert_target = sortedarr[(sortedarr.index(num) + 1) % len(sortedarr)]
 	num_before_insert_target = sortedarr[sortedarr.index(num) - 1]
 	path = []
-	num_dist_top = dist_to_top(b, num)
-	num_dist_bottom = dist_to_bottom(b, num)
+	num_dist_top = dist_top(b, num)
+	num_dist_bottom = dist_bottom(b, num)
 	# # print("INIT")
 	# # print_stacks(a, b)
 	if num_after_insert_target in a:
 		target_index = a.index(num_after_insert_target)
 		target_num = num_after_insert_target
-		targ_dist_top = dist_to_top(a, target_num)
-		targ_dist_bottom = dist_to_bottom(a, target_num)
+		targ_dist_top = dist_top(a, target_num)
+		targ_dist_bottom = dist_bottom(a, target_num)
 		if num_dist_top < num_dist_bottom + 1:
 			if targ_dist_top - num_dist_top > targ_dist_bottom + 1:
 				for i in range(num_dist_top):
@@ -177,7 +177,7 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 						path.append("rb")
 						r([b])
 				if a.index(target_num) != 0:
-					for i in range(dist_to_top(a, target_num)):
+					for i in range(dist_top(a, target_num)):
 						path.append("ra")
 						r([a])
 				path.append("pa")
@@ -199,7 +199,7 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 						path.append("rrb")
 						rr([b])
 				if a.index(target_num) != 0:
-					for i in range(dist_to_bottom(a, target_num) + 1):
+					for i in range(dist_bottom(a, target_num) + 1):
 						path.append("rra")
 						rr([a])
 			path.append("pa")
@@ -209,8 +209,8 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 		# print(f"Inserting after previous num in sorted, target: {num_before_insert_target}, num{num}")
 		target_index = a.index(num_before_insert_target)
 		target_num = num_before_insert_target
-		targ_dist_top = dist_to_top(a, target_num)
-		targ_dist_bottom = dist_to_bottom(a, target_num)
+		targ_dist_top = dist_top(a, target_num)
+		targ_dist_bottom = dist_bottom(a, target_num)
 		if num_dist_top < num_dist_bottom:
 			if targ_dist_top + 1 - num_dist_top > targ_dist_bottom:
 				for i in range(num_dist_top):
@@ -228,7 +228,7 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 						path.append("rb")
 						r([b])
 				if a.index(target_num) != len(a) - 1:
-					for i in range(dist_to_top(a, target_num) + 1):
+					for i in range(dist_top(a, target_num) + 1):
 						path.append("ra")
 						r([a])
 			path.append("pa")
@@ -239,7 +239,7 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 				for i in range(num_dist_bottom + 1):
 					path.append("rrb")
 					rr([b])
-				for i in range(dist_to_top(a, target_num) + 1):
+				for i in range(dist_top(a, target_num) + 1):
 					path.append("ra")
 					r([a])
 			else:
@@ -251,7 +251,7 @@ def	path_find_from_b(num, acopy, bcopy, sortedarr):
 						path.append("rrb")
 						rr([b])
 				if a.index(target_num) != len(a) - 1:
-					for i in range(dist_to_bottom(a, target_num)):
+					for i in range(dist_bottom(a, target_num)):
 						path.append("rra")
 						rr([a])
 			path.append("pa")
@@ -304,8 +304,8 @@ def move_unsorted_to_b(a, b):
 			unsorted.pop(0)
 		else:
 			for num in unsorted:
-				if unsorted[0] == num or min(dist_to_bottom(a, num), dist_to_top(a, num)) < min_len:
-					min_len = min(dist_to_bottom(a, num) + 1, dist_to_top(a, num))
+				if unsorted[0] == num or min(dist_bottom(a, num), dist_top(a, num)) < min_len:
+					min_len = min(dist_bottom(a, num) + 1, dist_top(a, num))
 					num_to_push = num
 			path.extend(move_to_top(num_to_push, a))
 			p(a, b)
@@ -326,12 +326,12 @@ def move_to_beginning(a, sortedarr):
 	path = []
 	target_index = a.index(sortedarr[0])
 	if target_index != 0:
-		if dist_to_bottom(a, sortedarr[0]) + 1 < dist_to_top(a, sortedarr[0]):
-			for i in range (dist_to_bottom(a, sortedarr[0]) + 1):
+		if dist_bottom(a, sortedarr[0]) + 1 < dist_top(a, sortedarr[0]):
+			for i in range (dist_bottom(a, sortedarr[0]) + 1):
 				path.append("rra")
 				rr([a])
 		else:
-			for i in range (dist_to_top(a, sortedarr[0])):
+			for i in range (dist_top(a, sortedarr[0])):
 				path.append("ra")
 				r([a])
 	# print("A:", a)

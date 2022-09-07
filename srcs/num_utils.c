@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:24:09 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:46:01 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:29:02 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_arr	extend_path(t_arr arr, t_arr extension)
 	}
 	if (extension.len && extension.arr)
 	{
-		ft_memcpy(newpath.arr + arr.len, extension.arr, extension.len * sizeof(int));
+		ft_memcpy(newpath.arr + arr.len, extension.arr, \
+					extension.len * sizeof(int));
 		free(extension.arr);
 	}
 	newpath.len = arr.len + extension.len;

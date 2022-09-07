@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 23:39:45 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/02 18:00:27 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:05:44 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 	const int 	num_dist_top = ft_get_list_index(num->num, *b);
 
 	i = 0;
-	if (dist_to_top(num->next_in_sorted, *a) - num_dist_top > dist_to_bottom(num->next_in_sorted, *a) + 1)
+	if (dist_top(num->next_in_sorted, *a) - num_dist_top > dist_bottom(num->next_in_sorted, *a) + 1)
 	{
 		path = move_to_top(num->num, b, RB);
-		path = extend_path(path, call_n_times(&rr, RRA, dist_to_bottom(num->next_in_sorted, *a) + 1, a));
+		path = extend_path(path, call_n_times(&rr, RRA, dist_bottom(num->next_in_sorted, *a) + 1, a));
 		path = extend_path(path, push_path(b, a, PA));
 		return (path);
 	}
@@ -36,7 +36,7 @@ t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 		i++;
 	}
 	if (ft_get_list_index(num->next_in_sorted, *a) != 0)
-		path = extend_path(path, call_n_times(&r, RA, dist_to_top(num->next_in_sorted, *a), a));
+		path = extend_path(path, call_n_times(&r, RA, dist_top(num->next_in_sorted, *a), a));
 	path = extend_path(path, push_path(b, a, PA));
 	return (path);
 }
@@ -46,14 +46,14 @@ t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 {
 	const int	num_dist_top = ft_get_list_index(num->num, *b);
-	const int	num_dist_bottom = dist_to_bottom(num->num, *b);
+	const int	num_dist_bottom = dist_bottom(num->num, *b);
 	int			i;
 
 	i = 0;
-	if (dist_to_bottom(num->next_in_sorted, *a) + 1 - num_dist_bottom > dist_to_top(num->next_in_sorted, *a))
+	if (dist_bottom(num->next_in_sorted, *a) + 1 - num_dist_bottom > dist_top(num->next_in_sorted, *a))
 	{
 		path = extend_path(path, call_n_times(&rr, RRB, num_dist_bottom + 1, b));
-		path = extend_path(path, call_n_times(&r, RA, dist_to_top(num->next_in_sorted, *a), a));
+		path = extend_path(path, call_n_times(&r, RA, dist_top(num->next_in_sorted, *a), a));
 	}
 	else
 	{
@@ -66,7 +66,7 @@ t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 			i++;
 		}
 		if (ft_get_list_index(num->next_in_sorted, *a) != 0)
-			path = extend_path(path, call_n_times(&rr, RRA, dist_to_bottom(num->next_in_sorted, *a) + 1, a));
+			path = extend_path(path, call_n_times(&rr, RRA, dist_bottom(num->next_in_sorted, *a) + 1, a));
 	}
 	return (extend_path(path, push_path(b, a, PA)));
 }
@@ -74,7 +74,7 @@ t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 t_arr	reinsert_before_target(t_node *num, t_node **a, t_node **b)
 {
 	const int	num_dist_top = ft_get_list_index(num->num, *b);
-	const int	num_dist_bottom = dist_to_bottom(num->num, *b);
+	const int	num_dist_bottom = dist_bottom(num->num, *b);
 	t_arr		path;
 	int			i;
 

@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/02 11:23:19 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 12:52:14 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_node	*create_node(int num, t_arr sortedarr)
 		new->previous_in_sorted = sortedarr.len - 1;
 	else
 		new->previous_in_sorted = sortedarr.arr[new->sorted_index - 1];
-	new->next_in_sorted = sortedarr.arr[(new->sorted_index + 1) % sortedarr.len];
+	new->next_in_sorted = \
+	sortedarr.arr[(new->sorted_index + 1) % sortedarr.len];
 	new->next = NULL;
 	if (DEBUG)
 		ft_printf("i %d num %d\n", new->num, new->next_in_sorted);
@@ -65,7 +66,7 @@ t_arr	parse_args_to_arr(int argc, char **argv)
 		i++;
 	}
 	array.arr = arr;
-	array.len = argc -1;
+	array.len = argc - 1;
 	check_if_dup(array);
 	return (array);
 }

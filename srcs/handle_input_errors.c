@@ -6,15 +6,43 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:41:06 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:52:00 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int	check_int_lim(char *arg)
+{
+	int			check;
+	int			check_copy;
+	int			s_len;
+	int			i;
+	int			minus;
+
+	minus = 0;
+	i = 0;
+	check = ft_atoi(arg);
+	check_copy = check;
+	s_len = ft_strlen(arg);
+	if (arg[0] == '+' || arg[0] == '-')
+		s_len--;
+	if (arg[0] == '-')
+		minus = -1;
+	while (check)
+	{
+		i++;
+		check /= 10;
+	}
+	if (arg[0] != '0' && (i != s_len || ft_atoi(arg) != check_copy
+		|| (minus && check_copy > 0) || (!minus && check_copy < 0)))
+		return (1);
+	return (0);
+}
+
 void	check_if_int(char *arg)
 {
-	int	i;
+	int			i;
 
 	i = 0;
 	if (arg[0] == '-' || arg[0] == '+')
@@ -27,6 +55,16 @@ void	check_if_int(char *arg)
 			exit(1);
 		}
 		i++;
+	}
+	if (i == 1 && (arg[0] == '-' || arg[0] == '+'))
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
+	if (check_int_lim(arg))
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:44:36 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/03 12:06:28 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/07 13:28:24 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ int	get_num_to_push(t_arr sub, t_node *a, t_arr moved)
 	{
 		if (DEBUG)
 		{
-		ft_printf("sub\n");
-		ft_print_arr(sub.arr, sub.len);
-		ft_printf("moved\n");
-		ft_print_arr(moved.arr, moved.len);
+			ft_printf("sub\n");
+			ft_print_arr(sub.arr, sub.len);
+			ft_printf("moved\n");
+			ft_print_arr(moved.arr, moved.len);
 		}
 		if (ft_get_arr_index(sub.arr[i], moved.arr, moved.len) == -1)
 		{
-			if (min_len == -1 || (min(dist_to_bottom(sub.arr[i], a), dist_to_top(sub.arr[i], a)) < min_len
-					&& min(dist_to_bottom(sub.arr[i], a), dist_to_top(sub.arr[i], a)) != -1))
+			if (min_len == -1 || (min(dist_bottom(sub.arr[i], a), dist_top(sub.arr[i], a)) < min_len
+					&& min(dist_bottom(sub.arr[i], a), dist_top(sub.arr[i], a)) != -1))
 			{
-				min_len = min(dist_to_bottom(sub.arr[i], a) + 1, dist_to_top(sub.arr[i], a));
+				min_len = min(dist_bottom(sub.arr[i], a) + 1, dist_top(sub.arr[i], a));
 				num_to_push = sub.arr[i];
 			}
 		}
@@ -55,7 +55,8 @@ int	get_num_to_push(t_arr sub, t_node *a, t_arr moved)
 	return (num_to_push);
 }
 
-void	init_move_unsorted_arrs(t_arr *unsorted, t_arr *moved, t_arr *sub, t_arr *path)
+void	init_move_unsorted_arrs(t_arr *unsorted, t_arr *moved, \
+								t_arr *sub, t_arr *path)
 {
 	moved->arr = malloc((unsorted->len + 1) * sizeof(int));
 	moved->len = 0;
@@ -90,7 +91,6 @@ t_arr	move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis)
 	{
 		ft_printf("Unsorted:\n");
 		ft_print_arr(unsorted.arr, unsorted.len);
-		
 	}
 	while (moved.len != unsorted.len)
 	{
@@ -109,7 +109,6 @@ t_arr	move_unsorted_to_b(t_node **a, t_node **b, t_arr arr, t_arr lis)
 		moved.len++;
 	}
 	moved.len++;
-	// ft_printf("PATHHH\n");
 	free_move_unsorted(moved, unsorted);
 	return (path);
 }
