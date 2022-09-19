@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:05:25 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/03 20:56:06 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/16 15:55:16 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_arr	path_find_from_b(t_node *num, t_node **a, t_node **b)
 
 	path.arr = NULL;
 	path.len = 0;
-	if (ft_get_list_index(num->next_in_sorted, *a) != -1)
+	if (get_list_index(num->next_in_sorted, *a) != -1)
 		path = reinsert_before_target(num, a, b);
-	else if (ft_get_list_index(num->previous_in_sorted, *a) != -1)
+	else if (get_list_index(num->previous_in_sorted, *a) != -1)
 		path = reinsert_after_target(num, a, b);
 	else
 		path = reinsert_before_closest(num, a, b);
@@ -45,7 +45,7 @@ t_arr	reinsert_sort(t_node **a, t_node **b)
 	while (*b)
 	{
 		current = *b;
-		while (current && ft_get_list_index(current->num, *b) != -1)
+		while (current && get_list_index(current->num, *b) != -1)
 		{
 			acopy = list_copy(*a);
 			bcopy = list_copy(*b);
