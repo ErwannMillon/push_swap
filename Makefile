@@ -52,7 +52,7 @@ $(LIBFTDIR)/libft.a:
 test: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -g $(OBJS) -o test_$(NAME) $(LIBFTDIR)/libft.a
 checker: $(LIBFTDIR)/libft.a $(BONUSOBJS)
-	gcc -ggdb3 $(CFLAGS) $(BONUSOBJS) -o checker $(LIBFTDIR)/libft.a
+	gcc -g $(CFLAGS) $(BONUSOBJS) -o checker $(LIBFTDIR)/libft.a
 bonus: checker
 asan: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -fsanitize=address $(OBJS) -o $(NAME) $(LIBFTDIR)/libft.a
