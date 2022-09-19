@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 23:39:45 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/19 13:04:33 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/19 14:00:22 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 {
 	int			i;
-	const int 	d_top = get_list_index(num->num, *b);
+	const int	d_top = get_list_index(num->num, *b);
 
 	i = 0;
 	if (dist_top(num->next_sorted, *a) - d_top > \
@@ -43,6 +43,15 @@ t_arr	top_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 	return (extend_path(path, push_path(b, a, PA)));
 }
 
+t_arr	align_arrs_bottom(const t_node *num, t_node **a, t_node **b, t_arr path)
+{
+	if (get_list_index(num->next_sorted, *a) != 0)
+		path = extend_path(path, double_r(a, b));
+	else
+		path = extend_path(path, call_n_times(&rr, RRB, 1, b));
+	return (path);
+}
+
 //INSERTS NUM_TO_PUSH BEFORE THE NEXT SORTED NUM IN A BY MOVING 
 //NUM_TO_PUSH TO TOP OF B WITH REVERSE ROTATES
 t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
@@ -63,10 +72,7 @@ t_arr	bottom_insert_before(t_node *num, t_node **a, t_node **b, t_arr path)
 	{
 		while (i < d_top)
 		{
-			if (get_list_index(num->next_sorted, *a) != 0)
-				path = extend_path(path, double_r(a, b));
-			else
-				path = extend_path(path, call_n_times(&rr, RRB, 1, b));
+			path = align_arrs_bottom(num, a, b, path);
 			i++;
 		}
 		if (get_list_index(num->next_sorted, *a) != 0)

@@ -6,49 +6,11 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 12:11:02 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/19 13:06:39 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/19 19:38:29 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	is_sorted(t_node *a)
-{
-	while (a->next)
-	{
-		if (a->num > a->next->num)
-			return (0);
-		a = a->next;
-	}
-	return (1);
-}
-
-t_arr	add_input_to_path(t_arr path, char *input)
-{
-	t_arr		input_arr;
-	const char	*operations[11] = {"pa\n", "pb\n", "sa\n", "sb\n",
-		"ss\n", "rr\n", "ra\n", "rb\n", "rra\n",
-		"rrb\n", "rrr\n"};
-	int			i;
-
-	input_arr.arr = malloc((sizeof(int) * 1));
-	input_arr.arr[0] = -1;
-	input_arr.len = 1;
-	i = 0;
-	while (i < 11)
-	{
-		if (!ft_strncmp(input, operations[i], ft_strlen(operations[i]) + 1))
-		{
-			input_arr.arr[0] = i + 1;
-			if (DEBUG)
-				ft_printf("operation %d\n", i + 1);
-			return (extend_path(path, input_arr));
-		}
-		i++;
-	}
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
-}
 
 void	double_call(t_node **a, t_node **b, int operation)
 {
@@ -71,7 +33,7 @@ void	double_call(t_node **a, t_node **b, int operation)
 
 void	list_cleanup(t_arr path, t_node **a, t_node **b)
 {
-	if (!b && is_sorted(*a))
+	if ((!b || !(*b)) && is_sorted(*a))
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
@@ -100,13 +62,12 @@ void	execute_path(t_arr path, t_node **a)
 		else if (path.arr[i] == PB)
 			p(a, &b);
 		else if (path.arr[i] == SA || path.arr[i] == SB)
-			s(stacks[path.arr[i] % 2]);
+			s((t_node **)stacks[path.arr[i] % 2]);
 		else if (path.arr[i] == RA || path.arr[i] == RB)
-			r(stacks[path.arr[i] % 2]);
+			r((t_node **)stacks[path.arr[i] % 2]);
 		else if (path.arr[i] == RRA || path.arr[i] == RRB)
-			rr(stacks[path.arr[i] % 2]);
+			rr((t_node **)stacks[path.arr[i] % 2]);
 		i++;
-		ft_print_stacks(*a, b);
 	}
 	list_cleanup(path, a, &b);
 }
@@ -128,7 +89,6 @@ int	main(int argc, char **argv)
 		free(input);
 		input = get_next_line(0);
 	}
-	print_path(path);
 	execute_path(path, &a);
 	free(input);
 	free(sortedarr.arr);

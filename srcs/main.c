@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 15:32:57 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/19 13:37:22 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_sorted(t_node *root)
 {
-	t_node *current;
+	t_node	*current;
 
 	current = root;
 	while (current)

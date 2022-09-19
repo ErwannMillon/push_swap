@@ -1,9 +1,12 @@
 BONUSSRCS = checker.c \
+			checker2.c \
 			input_parse.c \
 			handle_input_errors.c \
 			num_utils.c \
+			composite_stack_operations.c \
 			cleanup_functions.c \
 			list_utils.c \
+			list_search.c \
 			list_utils2.c \
 			stack_operations.c
 SRCS := main.c \
@@ -46,7 +49,7 @@ $(LIBFTDIR)/libft.a:
 	$(MAKE) -C $(LIBFTDIR)
 test: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -g $(OBJS) -o test_$(NAME) $(LIBFTDIR)/libft.a
-bonus: $(BONUSOBJS)
+bonus: $(LIBFTDIR)/libft.a $(BONUSOBJS)
 	gcc -g $(BONUSOBJS) -o checker $(LIBFTDIR)/libft.a
 asan: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -fsanitize=address $(OBJS) -o $(NAME) $(LIBFTDIR)/libft.a
@@ -61,6 +64,7 @@ fclean: clean
 re: fclean $(NAME) test
 proj_clean:
 	rm -f $(OBJS)
+	rm -f $(BONUSOBJS)
 	rm -f $(NAME)
 re_proj: proj_clean $(NAME)
 .PHONY:	all clean fclean re 
