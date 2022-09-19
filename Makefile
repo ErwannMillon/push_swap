@@ -46,6 +46,8 @@ all: $(NAME)
 $(NAME): $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -ggdb3 $(OBJS) $(CFLAGS) -o $(NAME) $(LIBFTDIR)/libft.a
 $(LIBFTDIR)/libft.a:
+	# git submodule init
+	# git submodule update
 	$(MAKE) -C $(LIBFTDIR)
 test: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -g $(OBJS) -o test_$(NAME) $(LIBFTDIR)/libft.a

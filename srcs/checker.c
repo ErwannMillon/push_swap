@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 12:11:02 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/19 19:38:29 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/19 20:07:40 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	list_cleanup(t_arr path, t_node **a, t_node **b)
 void	execute_path(t_arr path, t_node **a)
 {
 	t_node			*b;
-	const t_node	**stacks[2] = {&b, a};
+	t_node			**stacks[2];
 	int				i;
 
-	(t_node **)stacks;
+	stacks[0] = &b;
+	stacks[1] = a;
 	i = 0;
 	b = NULL;
 	while (i < path.len)
