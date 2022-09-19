@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:37:07 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 15:54:45 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/19 13:01:27 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,20 @@ t_node	*list_copy(t_node *root)
 	{
 		if (src_current->next)
 			copy_current->next = \
-			ft_memcpy_alloc(src_current->next, sizeof(t_node));
+				ft_memcpy_alloc(src_current->next, sizeof(t_node));
 		else
 			copy_current->next = NULL;
 		src_current = src_current->next;
 		copy_current = copy_current->next;
 	}
 	return (copy_root);
+}
+
+t_arr	align_arrs(const t_node *target, t_node **a, t_node **b, t_arr path)
+{
+	if (get_list_index(target->num, *a) != 0)
+		path = extend_path(path, double_r(a, b));
+	else
+		path = extend_path(path, call_n_times(&rr, RRB, 1, b));
+	return (path);
 }

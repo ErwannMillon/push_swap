@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/05/23 16:47:12 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/18 12:19:40 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	s(t_node **root)
 		second->next = first;
 		*root = second;
 	}
-	else
+	else if (DEBUG)
 		ft_printf("NULL POINTEER\n");
 }
 
@@ -48,7 +48,7 @@ void	p(t_node **src, t_node **dest)
 			tmp->next = NULL;
 		}
 	}
-	else
+	else if (DEBUG)
 		ft_printf("NULL POINTEER\n");
 }
 
@@ -72,7 +72,7 @@ void	rr(t_node **root)
 			*root = tmp;
 		}
 	}
-	else
+	else if (DEBUG)
 		ft_printf("NULL POINTEER\n");
 }
 
@@ -96,6 +96,6 @@ void	r(t_node **root)
 			*root = tmp;
 		}
 	}
-	else
+	else if (DEBUG)
 		ft_printf("NULL POINTEER\n");
 }
