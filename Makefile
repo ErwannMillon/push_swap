@@ -51,8 +51,9 @@ $(LIBFTDIR)/libft.a:
 	$(MAKE) -C $(LIBFTDIR)
 test: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -g $(OBJS) -o test_$(NAME) $(LIBFTDIR)/libft.a
-bonus: $(LIBFTDIR)/libft.a $(BONUSOBJS)
-	gcc -g $(BONUSOBJS) -o checker $(LIBFTDIR)/libft.a
+checker: $(LIBFTDIR)/libft.a $(BONUSOBJS)
+	gcc -ggdb3 $(CFLAGS) $(BONUSOBJS) -o checker $(LIBFTDIR)/libft.a
+bonus: checker
 asan: $(LIBFTDIR)/libft.a $(OBJS)
 	gcc -fsanitize=address $(OBJS) -o $(NAME) $(LIBFTDIR)/libft.a
 git:
@@ -69,4 +70,4 @@ proj_clean:
 	rm -f $(BONUSOBJS)
 	rm -f $(NAME)
 re_proj: proj_clean $(NAME)
-.PHONY:	all clean fclean re 
+.PHONY:	all clean fclean re bonus
