@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/25 18:21:30 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/25 19:14:43 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	main(int argc, char **argv)
 
 	b = NULL;
 	arr = parse_args_to_arr(argc, argv);
-	sortedarr.arr = ft_bubble_sort_copy(arr.arr, argc - 1);
-	sortedarr.len = argc - 1;
-	a = create_list(arr.arr, argc - 1, sortedarr);
-	path = move_unsorted_to_b(&a, &b, arr, get_rotating_lis(arr.arr, argc - 1));
+	sortedarr.arr = ft_bubble_sort_copy(arr.arr, arr.len);
+	sortedarr.len = arr.len;
+	a = create_list(arr.arr, arr.len, sortedarr);
+	path = move_unsorted_to_b(&a, &b, arr, get_rotating_lis(arr.arr, arr.len));
 	path = extend_path(path, reinsert_sort(&a, &b));
 	path = extend_path(path, move_min_to_start(&a));
 	print_path_output(path);

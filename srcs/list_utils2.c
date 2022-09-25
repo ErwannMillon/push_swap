@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 16:37:07 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/19 13:01:27 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/25 19:16:58 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	print_path_output(t_arr path)
 	while (i < path.len)
 	{
 		ft_printf("%s", s[path.arr[i]]);
-		if (i != path.len - 1)
-			ft_printf("\n");
+		ft_printf("\n");
 		i++;
 	}
 }
