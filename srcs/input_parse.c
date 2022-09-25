@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/25 19:07:53 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/25 19:38:32 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,42 @@ t_node	*create_list(int *a, int len, t_arr sortedarr)
 	return (first);
 }
 
-// char	**str_arg_split(int	*argc, char **argv)
-// {
-	
-// 	if (argc == 2 && ft_strchr(argv[1], ' '))
-// 	{
-// 		printf("a;sdfkj");
-// 		argv = ft_split(argv[1], ' ');
-// 		argc = arr_len(argv) + 1;
-// 	}
-// }
+static void	free_inc_split(char **arr)
+{
+	int	i;
+
+	i = 1;
+	while (arr && arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+static int	check_str_arg(int *argc, char ***argv)
+{
+	if (*argc == 2 && ft_strchr((*argv)[1], ' '))
+	{
+		(*argv) = str_arg_split((*argv)[1], ' ');
+		*argc = arr_len((*argv) + 1) + 1;
+		return (1);
+	}
+	return (0);
+}
 
 t_arr	parse_args_to_arr(int argc, char **argv)
 {
 	int		i;
 	int		*arr;
 	t_arr	array;
+	int		should_free;
 
 	arr = malloc(argc * sizeof(int));
 	i = 0;
 	if (argc < 2)
 		exit(1);
-	if (argc == 2 && ft_strchr(argv[1], ' '))
-	{
-		argv = str_arg_split(argv[1], ' ');
-		argc = arr_len(argv + 1) + 1;
-	}
+	should_free = check_str_arg(&argc, &argv);
 	while (i < argc - 1)
 	{
 		check_if_int(argv[i + 1]);
@@ -85,6 +95,8 @@ t_arr	parse_args_to_arr(int argc, char **argv)
 	}
 	array.arr = arr;
 	array.len = argc - 1;
+	if (should_free)
+		free_inc_split(argv);
 	check_if_dup(array);
 	return (array);
 }

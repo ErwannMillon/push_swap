@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 12:11:02 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/25 18:21:42 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/25 19:37:33 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,15 @@ void	execute_path(t_arr path, t_node **a)
 int	main(int argc, char **argv)
 {
 	t_arr		arr;
-	const t_arr	sortedarr = {ft_bubble_sort_copy(arr.arr, argc - 1), argc - 1};
+	t_arr		sortedarr;
 	t_node		*a;
 	t_arr		path;
 	char		*input;
 
 	arr = parse_args_to_arr(argc, argv);
-	a = create_list(arr.arr, argc - 1, sortedarr);
+	sortedarr.arr = ft_bubble_sort_copy(arr.arr, arr.len);
+	sortedarr.len = arr.len;
+	a = create_list(arr.arr, arr.len, sortedarr);
 	input = get_next_line(0);
 	path.len = 0;
 	while (input[0] != '\n')
