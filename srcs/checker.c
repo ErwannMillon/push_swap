@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 12:11:02 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/19 20:07:40 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/25 18:21:42 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ int	main(int argc, char **argv)
 	char		*input;
 
 	arr = parse_args_to_arr(argc, argv);
-	a = create_list(arr.arr, argc -1, sortedarr);
+	a = create_list(arr.arr, argc - 1, sortedarr);
 	input = get_next_line(0);
+	path.len = 0;
 	while (input[0] != '\n')
 	{
 		path = add_input_to_path(path, input);
