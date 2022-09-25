@@ -6,7 +6,7 @@
 /*   By: gmillon <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 23:07:14 by gmillon           #+#    #+#             */
-/*   Updated: 2022/09/07 16:01:21 by gmillon          ###   ########.fr       */
+/*   Updated: 2022/09/25 18:32:09 by gmillon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ t_arr	parse_args_to_arr(int argc, char **argv)
 
 	arr = malloc(argc * sizeof(int));
 	i = 0;
+	if (argc < 2)
+	{
+		ft_putstr_fd("Error\n", 2);
+		exit(1);
+	}
 	while (i < argc - 1)
 	{
 		check_if_int(argv[i + 1]);
